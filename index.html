@@ -4,6 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Firefox account menu — user test</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+    <link rel="manifest" href="assets/site.webmanifest" />
     <link rel="stylesheet" href="styles/tokens.css" />
     <link rel="stylesheet" href="styles/reset.css" />
     <link rel="stylesheet" href="styles/components.css" />
@@ -594,7 +598,7 @@
 
         <div class="panel-spacer"></div>
 
-        <button class="menu-item" type="button">
+        <button class="menu-item" type="button" data-action="enable-sync">
           <span class="menu-item__icon"><img src="assets/icons/sync-16.svg" alt="" /></span>
           <span class="menu-item__labels">
             <span class="menu-item__title">Sync your Data</span>
@@ -610,7 +614,7 @@
           <span class="menu-item__chevron" data-if-profiles="many"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
         </button>
 
-        <button class="menu-item" type="button">
+        <button class="menu-item" type="button" data-action="add-device">
           <span class="menu-item__icon"><img src="assets/icons/device-mobile-16.svg" alt="" /></span>
           <span class="menu-item__labels">
             <span class="menu-item__title">Connect a Phone</span>

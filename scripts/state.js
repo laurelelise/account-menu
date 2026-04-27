@@ -312,13 +312,16 @@ const ACTIONS = {
   },
   "enable-sync": () => {
     // Variant B: simulate an out-of-menu Sync settings flow with a confirm.
+    // From signed-out the modal frames it as a sign-in step; from
+    // signed-in-sync-off it's a straight "turn on Sync" step.
     if (isVariantB()) {
+      const isSignedOut = state.accountState === "signed-out";
       closePanels({ silent: true });
       showSimModal({
-        title: "Turn on Sync",
+        title: isSignedOut ? "Sign in to sync" : "Turn on Sync",
         body:
           "Sync keeps your bookmarks, history, open tabs, and passwords up to date across your devices.",
-        action: "Turn on Sync",
+        action: isSignedOut ? "Turn on sync" : "Turn on Sync",
         onConfirm: () => {
           openPanel("account");
           setAccountState("signed-in");
@@ -361,8 +364,38 @@ const ACTIONS = {
     });
   },
   "add-device": () => {
-    // Simulate the "connect a device" pairing flow with a confirm modal.
+    // From signed-out we surface a sign-in intermediary first — a phone can't
+    // pair without an account. Variant A's sign-in lands on signed-in (no
+    // device yet); variant B's sign-in collapses sign-in + sync + pair into
+    // one step and lands on connected-devices. Once already signed-in (any
+    // sync state) both variants fall through to the existing pairing modal.
     closePanels({ silent: true });
+    if (state.accountState === "signed-out") {
+      if (isVariantB()) {
+        showSimModal({
+          title: "Sign in to connect a phone",
+          body:
+            "You’ll be taken to accounts.firefox.com to sign in or create a Mozilla account, then your phone can pair and sync with this device.",
+          action: "Sign in",
+          onConfirm: () => {
+            openPanel("account");
+            setAccountState("connected-devices");
+          },
+        });
+        return;
+      }
+      showSimModal({
+        title: "Sign in to connect and sync your phone",
+        body:
+          "You’ll be taken to accounts.firefox.com to sign in or create a Mozilla account, then your phone can pair with this device.",
+        action: "Sign in",
+        onConfirm: () => {
+          openPanel("account");
+          setAccountState("signed-in");
+        },
+      });
+      return;
+    }
     showSimModal({
       title: "Connect a device",
       body:

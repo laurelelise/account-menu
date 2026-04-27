@@ -1,0 +1,146 @@
+/* Variant B — placeholder for new account UI patterns.
+   Apply differences from Variant A under selectors scoped to body[data-variant="b"].
+
+   Example pattern (commented out — fill in once direction is known):
+
+   body[data-variant="b"] .panel-promo {
+     background: var(--background\/color\/information);
+   }
+
+   body[data-variant="b"] .account-panel[data-active-state="signed-out"] .panel-promo__title::after {
+     content: " (new)";
+   }
+*/
+
+/* Variant B uses its own <section data-variant="b"> markup in index.html. */
+
+/* Profiles row toggles text + chevron based on body[data-profiles-mode].
+   - single (default): "Add a Profile", no chevron, click is a no-op
+   - many: "Profiles ›", chevron shown, click opens the Profiles flyout */
+.menu-item--profiles [data-if-profiles] {
+  display: none;
+}
+
+body[data-profiles-mode="single"] .menu-item--profiles [data-if-profiles="single"] {
+  display: block;
+}
+
+body[data-profiles-mode="many"] .menu-item--profiles [data-if-profiles="many"] {
+  display: block;
+}
+
+/* The chevron span is inside a flex row — use inline-flex when visible. */
+body[data-profiles-mode="many"] .menu-item--profiles .menu-item__chevron[data-if-profiles="many"] {
+  display: inline-flex;
+}
+
+/* -------- Sync status microinteraction (variant B, sync ON) --------
+   On menu open, the sync icon does a single brief rotation as a visual
+   "check" / confirmation, then the subtitle crossfades to "Updated just now".
+   After ~8s it fades back to the relative timestamp. */
+@keyframes sync-check {
+  from { transform: rotate(0); }
+  to { transform: rotate(720deg); }
+}
+
+[data-sync-status="on"] .menu-item__icon.is-checking > img,
+[data-sync-status="on"] .menu-item__icon.is-checking > svg {
+  animation: sync-check 2000ms cubic-bezier(0.3, 0.1, 0.4, 1);
+  transform-origin: 50% 50%;
+}
+
+[data-sync-status="on"] .menu-item__subtitle {
+  transition: opacity 250ms ease-out;
+}
+
+[data-sync-status="on"] .menu-item__subtitle.is-fading {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-sync-status="on"] .menu-item__icon.is-checking > img,
+  [data-sync-status="on"] .menu-item__icon.is-checking > svg {
+    animation: none;
+  }
+}
+
+/* -------- Simulation modal (variant B confirmation dialog) -------- */
+.sim-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 6000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sim-modal[hidden] {
+  display: none;
+}
+
+.sim-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(24, 14, 48, 0.35);
+}
+
+.sim-modal__dialog {
+  position: relative;
+  width: 400px;
+  max-width: calc(100vw - 32px);
+  padding: 20px;
+  background: var(--panel\/background\/color);
+  border: 1px solid var(--panel\/border\/color);
+  border-radius: var(--panel\/border\/radius);
+  box-shadow: var(--box-shadow\/level-3);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: var(--platform\/font-size\/family);
+  color: var(--text\/color);
+}
+
+.sim-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--text\/color\/deemphasized);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sim-modal__close:hover {
+  background: var(--toolbar\/button\/background\/color\/hover);
+}
+
+.sim-modal__title {
+  margin: 0;
+  padding-right: 28px;
+  font-size: var(--font-size\/medium\/heading);
+  font-weight: var(--font\/weight\/semibold);
+  line-height: 1.2;
+  color: var(--text\/color);
+}
+
+.sim-modal__body {
+  margin: 0;
+  font-size: var(--font-size\/root);
+  line-height: 1.4;
+  color: var(--text\/color\/deemphasized);
+}
+
+.sim-modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}

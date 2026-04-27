@@ -1,0 +1,1243 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Firefox account menu — user test</title>
+    <link rel="stylesheet" href="styles/tokens.css" />
+    <link rel="stylesheet" href="styles/reset.css" />
+    <link rel="stylesheet" href="styles/components.css" />
+    <link rel="stylesheet" href="styles/chrome.css" />
+    <link rel="stylesheet" href="styles/app-menu.css" />
+    <link rel="stylesheet" href="styles/account-menu.css" />
+    <link rel="stylesheet" href="styles/variant-b.css" />
+    <link rel="stylesheet" href="styles/dev-switcher.css" />
+  </head>
+  <body>
+    <!-- ============================================================
+         Browser window — static chrome matching Figma 114:39153
+         ============================================================ -->
+    <div class="browser-window">
+      <!-- Toolbox: rounded container wrapping tabstrip + nav toolbar -->
+      <div class="toolbox">
+      <!-- Tabstrip — matches Figma 114:39270 -->
+      <div class="tabstrip" role="presentation">
+        <div class="tabstrip__traffic-lights" aria-hidden="true">
+          <img src="assets/icons/traffic-lights.svg" alt="" />
+        </div>
+
+        <div class="tabstrip__tabs">
+          <div class="tab tab--pinned" role="tab" aria-label="Gmail">
+            <img class="tab__favicon" src="assets/avatars/favicon-gmail.png" alt="" />
+          </div>
+          <div class="tab tab--pinned" role="tab" aria-label="YouTube">
+            <img class="tab__favicon" src="assets/avatars/favicon-youtube.png" alt="" />
+          </div>
+
+          <div class="tab tab--active" role="tab" aria-selected="true">
+            <img class="tab__favicon" src="assets/logo/Airbnb.svg" alt="" />
+            <span class="tab__title">Airbnb | Your trips</span>
+            <button class="tab__close" aria-label="Close tab">
+              <img src="assets/icons/close-16.svg" alt="" />
+            </button>
+          </div>
+
+          <div class="tab tab--content" role="tab">
+            <img class="tab__favicon" src="assets/avatars/favicon-etsy.png" alt="" />
+            <span class="tab__title">Gifts for mom</span>
+          </div>
+
+          <button class="toolbar-button tabstrip__new-tab" aria-label="New tab" tabindex="-1">
+            <img src="assets/icons/plus-16.svg" alt="" />
+          </button>
+        </div>
+
+        <div class="tabstrip__trailing">
+          <button class="toolbar-button" aria-label="All tabs" tabindex="-1">
+            <img src="assets/icons/arrow-down.svg" alt="" />
+          </button>
+          <button class="toolbar-button toolbar-button--window-switcher" aria-label="Window switcher" tabindex="-1">
+            <img src="assets/icons/window-switcher-32.svg" alt="" />
+          </button>
+          <button
+            class="toolbar-button"
+            id="hamburger-button"
+            aria-label="Open application menu"
+            aria-haspopup="menu"
+            aria-expanded="false"
+            aria-controls="app-menu-panel"
+          >
+            <img src="assets/icons/hamburger-16.svg" alt="" />
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation toolbar — matches Figma 114:39270 -->
+      <div class="nav-toolbar" role="presentation">
+        <div class="nav-toolbar__leading">
+          <button class="toolbar-button" aria-label="Sidebar" tabindex="-1">
+            <img src="assets/icons/sidebar-16.svg" alt="" />
+          </button>
+          <button class="toolbar-button" aria-label="Back" tabindex="-1">
+            <img src="assets/icons/back-16.svg" alt="" />
+          </button>
+          <button class="toolbar-button" aria-label="Forward" tabindex="-1">
+            <img src="assets/icons/forward-16.svg" alt="" />
+          </button>
+          <button class="toolbar-button" aria-label="Refresh" tabindex="-1">
+            <img src="assets/icons/refresh-16.svg" alt="" />
+          </button>
+        </div>
+
+        <div class="urlbar">
+          <button class="urlbar-icon" aria-label="Tracking protection" tabindex="-1">
+            <img src="assets/icons/shield-16.svg" alt="" />
+          </button>
+          <button class="urlbar-icon" aria-label="Connection secure" tabindex="-1">
+            <img src="assets/icons/lock-16.svg" alt="" />
+          </button>
+          <button class="urlbar-icon" aria-label="Site permissions" tabindex="-1">
+            <img src="assets/icons/permissions-16.svg" alt="" />
+          </button>
+          <span class="urlbar__address">airbnb.com/yourtrips</span>
+          <button class="urlbar-icon urlbar-icon--trailing" aria-label="Reader mode" tabindex="-1">
+            <img src="assets/icons/reader-mode-16.svg" alt="" />
+          </button>
+          <button class="urlbar-icon urlbar-icon--trailing" aria-label="Bookmark" tabindex="-1">
+            <img src="assets/icons/bookmark-16.svg" alt="" />
+          </button>
+        </div>
+
+        <div class="nav-toolbar__trailing">
+          <button class="vpn-badge" aria-label="VPN on" tabindex="-1">
+            <img src="assets/icons/vpn-on-12.svg" alt="" />
+            <span class="vpn-badge__label">VPN</span>
+          </button>
+          <button
+            class="toolbar-button toolbar-button--account"
+            id="account-button"
+            aria-label="Account"
+            aria-haspopup="menu"
+            aria-expanded="false"
+            aria-controls="account-panel"
+          >
+            <img class="account-button__icon" src="assets/icons/account-16.svg" alt="" />
+            <img class="account-button__avatar" src="assets/avatars/Ellipse%202.png" alt="" />
+          </button>
+          <button class="toolbar-button" aria-label="Extensions" tabindex="-1">
+            <img src="assets/icons/extensions-16.svg" alt="" />
+          </button>
+        </div>
+      </div>
+      </div><!-- /.toolbox -->
+
+      <!-- Window body: sidebar + content -->
+      <div class="browser-window__body">
+        <aside class="sidebar" aria-label="Sidebar">
+          <button class="toolbar-button" aria-label="All tabs" tabindex="-1">
+            <img src="assets/icons/arrow-down.svg" alt="" />
+          </button>
+          <button class="toolbar-button" aria-label="AI mode" tabindex="-1">
+            <img src="assets/icons/ai-mode-16.svg" alt="" />
+          </button>
+          <button class="toolbar-button" aria-label="Bookmarks" tabindex="-1">
+            <img src="assets/icons/bookmarks-16.svg" alt="" />
+          </button>
+          <button class="toolbar-button" aria-label="History" tabindex="-1">
+            <img src="assets/icons/history-16.svg" alt="" />
+          </button>
+          <button class="toolbar-button" aria-label="Settings" tabindex="-1">
+            <img src="assets/icons/settings-16.svg" alt="" />
+          </button>
+        </aside>
+
+        <main class="content" aria-hidden="true">
+          <div class="wireframe">
+            <div class="wireframe__header">
+              <div class="wireframe__logo"></div>
+              <div class="wireframe__nav">
+                <span></span><span></span><span></span><span></span>
+              </div>
+              <div class="wireframe__circle"></div>
+            </div>
+            <div class="wireframe__hero">
+              <div class="wireframe__bar wireframe__bar--xl"></div>
+              <div class="wireframe__bar wireframe__bar--lg"></div>
+              <div class="wireframe__bar wireframe__bar--md"></div>
+              <div class="wireframe__cta"></div>
+            </div>
+            <div class="wireframe__grid">
+              <div class="wireframe__card">
+                <div class="wireframe__image"></div>
+                <div class="wireframe__bar"></div>
+                <div class="wireframe__bar wireframe__bar--short"></div>
+              </div>
+              <div class="wireframe__card">
+                <div class="wireframe__image"></div>
+                <div class="wireframe__bar"></div>
+                <div class="wireframe__bar wireframe__bar--short"></div>
+              </div>
+              <div class="wireframe__card">
+                <div class="wireframe__image"></div>
+                <div class="wireframe__bar"></div>
+                <div class="wireframe__bar wireframe__bar--short"></div>
+              </div>
+              <div class="wireframe__card">
+                <div class="wireframe__image"></div>
+                <div class="wireframe__bar"></div>
+                <div class="wireframe__bar wireframe__bar--short"></div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Scrim over content when a menu is open -->
+    <div class="menu-scrim" id="menu-scrim" hidden></div>
+
+    <!-- ============================================================
+         Account menu panel — all 4 states in one panel,
+         visibility controlled by data-active-state on the panel.
+         ============================================================ -->
+    <div
+      class="panel account-panel"
+      id="account-panel"
+      role="menu"
+      aria-label="Account menu"
+      data-active-state="signed-out"
+      hidden
+    >
+      <!-- ============================================================
+           Signed-out — Figma 114:50793
+           ============================================================ -->
+      <section class="panel__slot" data-variant="a" data-menu-state="signed-out" data-promo-state="full" aria-label="Signed out">
+        <div class="panel-promo panel-promo--large">
+          <button class="panel-promo__close" type="button" data-action="dismiss-promo" aria-label="Dismiss">
+            <img src="assets/icons/close-16.svg" alt="" />
+          </button>
+          <div class="panel-promo__contents">
+            <p class="panel-promo__title">Sync all your devices</p>
+            <p class="panel-promo__body">Instantly get your bookmarks and passwords everywhere you’re signed in to Firefox.</p>
+            <button class="moz-button moz-button--primary" data-action="signin">Sign in</button>
+          </div>
+          <span class="panel-promo__mascot" aria-hidden="true">
+            <img src="assets/logo/expressive-firefox.svg" alt="" />
+          </span>
+        </div>
+
+        <!-- Compact sign-in row shown after the large promo is dismissed
+             (Figma 3:3171). Single 32px row with circle avatar icon. -->
+        <div class="panel-promo panel-promo--compact">
+          <span class="panel-promo__icon-circle" aria-hidden="true">
+            <img src="assets/icons/account-16.svg" alt="" />
+          </span>
+          <span class="panel-promo__labels">
+            <span class="panel-promo__title">Sign in to sync</span>
+            <span class="panel-promo__subtitle">Get your data everywhere</span>
+          </span>
+          <button class="moz-button moz-button--default" data-action="signin">Sign in</button>
+        </div>
+
+        <!-- Spacer (no line) after the large promo / divider (with line)
+             after the compact row, toggled by data-promo-state. -->
+        <div class="panel-spacer"></div>
+        <div class="panel-divider panel-divider--promo"></div>
+
+        <!-- Profile rows shown after Create a New Profile is confirmed
+             (body[data-profiles-mode="many"]). Visible regardless of sign-in. -->
+        <div class="profiles-after-create">
+          <button class="menu-item" type="button">
+            <span class="menu-item__profile-icon">
+              <img src="assets/icons/profile-heart-16.svg" alt="" />
+            </span>
+            <span class="menu-item__labels">
+              <span class="menu-item__title">Original Profile</span>
+            </span>
+            <span class="menu-item__chevron">
+              <img src="assets/icons/chevron-right-16.svg" alt="" />
+            </span>
+          </button>
+
+          <button class="menu-item" type="button">
+            <span class="menu-item__profile-icon menu-item__profile-icon--success">
+              <img src="assets/icons/profile-makeup-16.svg" alt="" />
+            </span>
+            <span class="menu-item__labels">
+              <span class="menu-item__title">Work</span>
+            </span>
+          </button>
+
+          <div class="panel-divider"></div>
+        </div>
+
+        <button class="menu-item menu-item--no-icon" type="button" data-action="create-profile">
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Create a New Profile</span>
+            <span class="menu-item__subtitle">Keep your browsing separate</span>
+          </span>
+          <span class="menu-item__chevron">
+            <img src="assets/icons/chevron-right-16.svg" alt="" />
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button" data-action="add-device">
+          <span class="menu-item__icon">
+            <img src="assets/icons/device-mobile-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Connect a Phone</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <div class="menu-subheader">Privacy boosts</div>
+
+        <button class="menu-item" type="button" data-action="secure-sync">
+          <span class="menu-item__icon">
+            <img src="assets/icons/synced-tabs-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Secure Sync</span>
+            <span class="menu-item__subtitle">Get your data on other devices</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon">
+            <img src="assets/icons/logo-monitor-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Data Breach Alerts</span>
+            <span class="menu-item__subtitle">Get data breach alerts</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon">
+            <img src="assets/icons/logo-relay-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Email Masks</span>
+            <span class="menu-item__subtitle">Defend your inbox from spam</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon">
+            <img src="assets/icons/logo-vpn-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Free VPN</span>
+            <span class="menu-item__subtitle">Protect 50GB of your browsing free</span>
+          </span>
+        </button>
+      </section>
+
+      <!-- ============================================================
+           Signed-in — Figma 114:39579
+           ============================================================ -->
+      <section class="panel__slot" data-variant="a" data-menu-state="signed-in" aria-label="Signed in">
+        <button class="menu-item" type="button" data-action="manage-account">
+          <span class="menu-item__avatar">
+            <img src="assets/avatars/Ellipse%202.png" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title menu-item__title--semibold">sam@gmail.com</span>
+            <span class="menu-item__subtitle">Manage Account</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <div class="profiles-after-create">
+          <div class="menu-subheader">Profiles</div>
+
+          <button class="menu-item" type="button">
+            <span class="menu-item__profile-icon">
+              <img src="assets/icons/profile-heart-16.svg" alt="" />
+            </span>
+            <span class="menu-item__labels">
+              <span class="menu-item__title">Original Profile</span>
+            </span>
+            <span class="menu-item__chevron">
+              <img src="assets/icons/chevron-right-16.svg" alt="" />
+            </span>
+          </button>
+
+          <button class="menu-item" type="button">
+            <span class="menu-item__profile-icon menu-item__profile-icon--success">
+              <img src="assets/icons/profile-makeup-16.svg" alt="" />
+            </span>
+            <span class="menu-item__labels">
+              <span class="menu-item__title">Work</span>
+            </span>
+          </button>
+
+          <div class="panel-divider"></div>
+        </div>
+
+        <button class="menu-item menu-item--no-icon" type="button" data-action="create-profile">
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Create a New Profile</span>
+            <span class="menu-item__subtitle">Keep your browsing separate</span>
+          </span>
+          <span class="menu-item__chevron">
+            <img src="assets/icons/chevron-right-16.svg" alt="" />
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <div class="menu-row">
+          <button class="menu-item" type="button" data-action="add-device">
+            <span class="menu-item__icon">
+              <img src="assets/icons/device-mobile-16.svg" alt="" />
+            </span>
+            <span class="menu-item__labels">
+              <span class="menu-item__title">Connect a Phone</span>
+            </span>
+          </button>
+        </div>
+
+        <div class="panel-divider"></div>
+
+        <div class="menu-subheader">Privacy tools</div>
+
+        <div class="menu-row">
+          <button class="menu-item" type="button" data-action="secure-sync">
+            <span class="menu-item__icon">
+              <img src="assets/icons/synced-tabs-16.svg" alt="" />
+            </span>
+            <span class="menu-item__labels">
+              <span class="menu-item__title">Secure Sync</span>
+              <span class="menu-item__subtitle">Manage sync</span>
+            </span>
+          </button>
+          <button class="icon-button" type="button" aria-label="Sync now">
+            <img src="assets/icons/sync-16.svg" alt="" />
+          </button>
+        </div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon">
+            <img src="assets/icons/logo-monitor-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Monitor</span>
+            <span class="menu-item__subtitle">Get data breach alerts</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon">
+            <img src="assets/icons/logo-relay-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Relay</span>
+            <span class="menu-item__subtitle">Defend your inbox from spam</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon">
+            <img src="assets/icons/logo-vpn-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">VPN</span>
+            <span class="menu-item__subtitle">Protect 50GB of your browsing free</span>
+          </span>
+        </button>
+      </section>
+
+      <!-- ============================================================
+           Connected devices — Figma 114:50506
+           ============================================================ -->
+      <section class="panel__slot" data-variant="a" data-menu-state="connected-devices" aria-label="Connected devices">
+        <button class="menu-item" type="button" data-action="manage-account">
+          <span class="menu-item__avatar">
+            <img src="assets/avatars/Ellipse%202.png" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title menu-item__title--semibold">sam@gmail.com</span>
+            <span class="menu-item__subtitle">Manage Account</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <div class="profiles-after-create">
+          <div class="menu-subheader">Profiles</div>
+
+          <button class="menu-item" type="button">
+            <span class="menu-item__profile-icon">
+              <img src="assets/icons/profile-heart-16.svg" alt="" />
+            </span>
+            <span class="menu-item__labels">
+              <span class="menu-item__title">Original Profile</span>
+            </span>
+            <span class="menu-item__chevron">
+              <img src="assets/icons/chevron-right-16.svg" alt="" />
+            </span>
+          </button>
+
+          <button class="menu-item" type="button">
+            <span class="menu-item__profile-icon menu-item__profile-icon--success">
+              <img src="assets/icons/profile-makeup-16.svg" alt="" />
+            </span>
+            <span class="menu-item__labels">
+              <span class="menu-item__title">Work</span>
+            </span>
+          </button>
+
+          <div class="panel-divider"></div>
+        </div>
+
+        <button class="menu-item menu-item--no-icon" type="button" data-action="create-profile">
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Create a New Profile</span>
+            <span class="menu-item__subtitle">Keep your browsing separate</span>
+          </span>
+          <span class="menu-item__chevron">
+            <img src="assets/icons/chevron-right-16.svg" alt="" />
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <div class="menu-subheader">Connected devices</div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__labels">
+            <span class="menu-item__title">View Tabs</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button" data-action="open-device">
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Send Tab to a Device</span>
+          </span>
+          <span class="menu-item__chevron">
+            <img src="assets/icons/chevron-right-16.svg" alt="" />
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <div class="menu-subheader">Privacy boosts</div>
+
+        <div class="menu-row">
+          <button class="menu-item" type="button" data-action="secure-sync">
+            <span class="menu-item__icon">
+              <img src="assets/icons/synced-tabs-16.svg" alt="" />
+            </span>
+            <span class="menu-item__labels">
+              <span class="menu-item__title">Secure Sync</span>
+              <span class="menu-item__subtitle">Manage sync</span>
+            </span>
+          </button>
+          <button class="icon-button" type="button" aria-label="Sync now">
+            <img src="assets/icons/sync-16.svg" alt="" />
+          </button>
+        </div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon">
+            <img src="assets/icons/logo-monitor-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Monitor</span>
+            <span class="menu-item__subtitle">Get data breach alerts</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon">
+            <img src="assets/icons/logo-relay-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Relay</span>
+            <span class="menu-item__subtitle">Defend your inbox from spam</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon">
+            <img src="assets/icons/logo-vpn-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">VPN</span>
+            <span class="menu-item__subtitle">Protect 50GB of your browsing free</span>
+          </span>
+        </button>
+      </section>
+
+      <!-- ============================================================
+           VARIANT B — Figma 148:54848
+           ============================================================ -->
+
+      <!-- Variant B / Signed out — Figma 125:52248 -->
+      <section class="panel__slot" data-variant="b" data-menu-state="signed-out" aria-label="Signed out">
+        <div class="panel-promo">
+          <span class="panel-promo__logo" aria-hidden="true">
+            <img src="assets/logo/expressive-firefox.svg" alt="" />
+          </span>
+          <span class="panel-promo__labels">
+            <span class="panel-promo__title">Sign in to sync</span>
+            <span class="panel-promo__subtitle">Get your data everywhere</span>
+          </span>
+          <button class="moz-button moz-button--primary" data-action="signin">Sign in</button>
+        </div>
+
+        <div class="panel-spacer"></div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/sync-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Sync your Data</span>
+          </span>
+        </button>
+
+        <button class="menu-item menu-item--profiles" type="button" data-action="open-profiles">
+          <span class="menu-item__icon"><img src="assets/icons/users-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title" data-if-profiles="single">Add a Profile</span>
+            <span class="menu-item__title" data-if-profiles="many">Profiles</span>
+          </span>
+          <span class="menu-item__chevron" data-if-profiles="many"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/device-mobile-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Connect a Phone</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-monitor-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Monitor</span>
+            <span class="menu-item__subtitle">Breach alerts</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-relay-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Relay</span>
+            <span class="menu-item__subtitle">Email masks</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-vpn-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">VPN</span>
+            <span class="menu-item__subtitle">VPN protection</span>
+          </span>
+        </button>
+      </section>
+
+      <!-- Variant B / Signed in, sync OFF — post-signin, sync not yet enabled. -->
+      <section class="panel__slot" data-variant="b" data-menu-state="signed-in-sync-off" aria-label="Signed in, sync off">
+        <button class="menu-item" type="button" data-action="manage-account">
+          <span class="menu-item__avatar">
+            <img src="assets/avatars/Ellipse%202.png" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title menu-item__title--semibold">sam@gmail.com</span>
+            <span class="menu-item__subtitle">Manage Account</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button" data-action="enable-sync">
+          <span class="menu-item__icon"><img src="assets/icons/sync-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Sync your Data</span>
+          </span>
+        </button>
+
+        <button class="menu-item menu-item--profiles" type="button" data-action="open-profiles">
+          <span class="menu-item__icon"><img src="assets/icons/users-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title" data-if-profiles="single">Add a Profile</span>
+            <span class="menu-item__title" data-if-profiles="many">Profiles</span>
+          </span>
+          <span class="menu-item__chevron" data-if-profiles="many"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+        </button>
+
+        <button class="menu-item" type="button" data-action="add-device">
+          <span class="menu-item__icon"><img src="assets/icons/device-mobile-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Connect a Phone</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-monitor-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Monitor</span>
+            <span class="menu-item__subtitle">Breach alerts</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-relay-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Relay</span>
+            <span class="menu-item__subtitle">Email masks</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-vpn-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">VPN</span>
+            <span class="menu-item__subtitle">VPN protection</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button" data-action="signout">
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Sign out</span>
+          </span>
+        </button>
+      </section>
+
+      <!-- Variant B / Signed in + sync ON — Figma 146:54165 -->
+      <section class="panel__slot" data-variant="b" data-menu-state="signed-in" aria-label="Signed in">
+        <button class="menu-item" type="button" data-action="manage-account">
+          <span class="menu-item__avatar">
+            <img src="assets/avatars/Ellipse%202.png" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title menu-item__title--semibold">sam@gmail.com</span>
+            <span class="menu-item__subtitle">Manage Account</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button" data-sync-status="on" data-action="manage-sync">
+          <span class="menu-item__icon"><img src="assets/icons/sync-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Sync is On</span>
+            <span class="menu-item__subtitle">Last synced 5 minutes ago</span>
+          </span>
+        </button>
+
+        <button class="menu-item menu-item--profiles" type="button" data-action="open-profiles">
+          <span class="menu-item__icon"><img src="assets/icons/users-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title" data-if-profiles="single">Add a Profile</span>
+            <span class="menu-item__title" data-if-profiles="many">Profiles</span>
+          </span>
+          <span class="menu-item__chevron" data-if-profiles="many"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+        </button>
+
+        <button class="menu-item" type="button" data-action="add-device">
+          <span class="menu-item__icon"><img src="assets/icons/device-mobile-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Connect a Phone</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-monitor-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Monitor</span>
+            <span class="menu-item__subtitle">Breach alerts</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-relay-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Relay</span>
+            <span class="menu-item__subtitle">Email masks</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-vpn-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">VPN</span>
+            <span class="menu-item__subtitle">VPN protection</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button" data-action="signout">
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Sign out</span>
+          </span>
+        </button>
+      </section>
+
+      <!-- Variant B / Signed in + sync + devices — Figma 146:54277 -->
+      <section class="panel__slot" data-variant="b" data-menu-state="connected-devices" aria-label="Connected devices">
+        <button class="menu-item" type="button" data-action="manage-account">
+          <span class="menu-item__avatar">
+            <img src="assets/avatars/Ellipse%202.png" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title menu-item__title--semibold">sam@gmail.com</span>
+            <span class="menu-item__subtitle">Manage Account</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button" data-sync-status="on" data-action="manage-sync">
+          <span class="menu-item__icon"><img src="assets/icons/sync-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Sync is On</span>
+            <span class="menu-item__subtitle">Last synced 5 minutes ago</span>
+          </span>
+        </button>
+
+        <button class="menu-item menu-item--profiles" type="button" data-action="open-profiles">
+          <span class="menu-item__icon"><img src="assets/icons/users-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title" data-if-profiles="single">Add a Profile</span>
+            <span class="menu-item__title" data-if-profiles="many">Profiles</span>
+          </span>
+          <span class="menu-item__chevron" data-if-profiles="many"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+        </button>
+
+        <button class="menu-item" type="button" data-action="open-devices-list">
+          <span class="menu-item__icon"><img src="assets/icons/device-mobile-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Connected devices</span>
+          </span>
+          <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-monitor-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Monitor</span>
+            <span class="menu-item__subtitle">Breach alerts</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-relay-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Relay</span>
+            <span class="menu-item__subtitle">Email masks</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-vpn-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">VPN</span>
+            <span class="menu-item__subtitle">VPN protection</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button" data-action="signout">
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Sign out</span>
+          </span>
+        </button>
+      </section>
+
+      <!-- ============================================================
+           VARIANT C — restructured menu with section subheaders.
+           Single signed-in layout shown for all states under variant C.
+           ============================================================ -->
+      <section class="panel__slot" data-variant="c" data-menu-state="signed-in" aria-label="Account">
+        <div class="menu-subheader">Your data</div>
+
+        <button class="menu-item" type="button" data-action="open-profiles">
+          <span class="menu-item__icon"><img src="assets/icons/users-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Profiles</span>
+          </span>
+          <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/passkey-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Passwords &amp; Autofill</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+        <div class="menu-subheader">Sync</div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/sync-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Sync is on</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+        <div class="menu-subheader">Send tab to</div>
+
+        <button class="menu-item" type="button" data-action="open-device">
+          <span class="menu-item__icon"><img src="assets/icons/device-mobile-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Sam’s iPhone</span>
+          </span>
+          <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+        </button>
+
+        <button class="menu-item" type="button" data-action="open-device">
+          <span class="menu-item__icon"><img src="assets/icons/device-mobile-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Sam’s iPad</span>
+          </span>
+          <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+        </button>
+
+        <div class="panel-divider"></div>
+        <div class="menu-subheader">Devices</div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/settings-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Manage devices</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+        <div class="menu-subheader">Services</div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-monitor-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Monitor</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-relay-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Relay</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-vpn-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">VPN</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+        <div class="menu-subheader">Footer</div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Sign out</span>
+          </span>
+        </button>
+      </section>
+
+    </div>
+
+    <!-- ============================================================
+         Sub-panel — flies out beside the main account panel for sub-flows
+         like the device-detail view. Stays open while the primary menu
+         remains visible. Auto-positioned right or left based on space.
+         ============================================================ -->
+    <div
+      class="panel sub-panel"
+      id="sub-panel"
+      role="menu"
+      aria-label="Sub menu"
+      data-active-state="device-detail"
+      hidden
+    >
+      <!-- Variant A — Figma 114:50538: Send Tab nested menu. -->
+      <section class="panel__slot" data-variant="a" data-sub-state="device-detail" aria-label="Send Tab">
+        <div class="panel-header">
+          <div class="panel-header__slot" aria-hidden="true"></div>
+          <p class="panel-header__title">Send Tab</p>
+          <div class="panel-header__slot" aria-hidden="true"></div>
+        </div>
+
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon">
+            <img src="assets/icons/device-mobile-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Sam’s iPhone</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Manage devices</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Connect a new device</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Don’t see your device?</span>
+          </span>
+        </button>
+      </section>
+
+      <!-- Variant B — Figma 148:54390 -->
+      <section class="panel__slot" data-variant="b" data-sub-state="device-detail" aria-label="Sam’s iPhone 16">
+        <div class="panel-header">
+          <div class="panel-header__slot" aria-hidden="true"></div>
+          <p class="panel-header__title">Sam’s iPhone 16</p>
+          <div class="panel-header__slot" aria-hidden="true"></div>
+        </div>
+
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon">
+            <img src="assets/icons/send-to-device-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Send Tabs to Sam’s iPhone</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon">
+            <img src="assets/icons/synced-tabs-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">View Tabs on Sam’s iPhone</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon">
+            <img src="assets/icons/settings-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Manage device settings</span>
+          </span>
+        </button>
+      </section>
+
+      <!-- Variant B / Profiles sub-panel — Figma 148:54557 -->
+      <section class="panel__slot" data-variant="b" data-sub-state="profiles" aria-label="Profiles">
+        <div class="panel-header">
+          <div class="panel-header__slot" aria-hidden="true"></div>
+          <p class="panel-header__title">Profiles</p>
+          <div class="panel-header__slot" aria-hidden="true"></div>
+        </div>
+
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__profile-icon">
+            <img src="assets/icons/profile-heart-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Original Profile</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__profile-icon menu-item__profile-icon--success">
+            <img src="assets/icons/profile-makeup-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Work</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon">
+            <img src="assets/icons/add-user-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Add a Profile</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon">
+            <img src="assets/icons/settings-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Manage Profiles</span>
+          </span>
+        </button>
+      </section>
+
+      <!-- Variant B / Connected devices list — Figma 163:55356 -->
+      <section class="panel__slot" data-variant="b" data-sub-state="devices-list" aria-label="Connected devices">
+        <div class="panel-header">
+          <div class="panel-header__slot" aria-hidden="true"></div>
+          <p class="panel-header__title">Connected devices</p>
+          <div class="panel-header__slot" aria-hidden="true"></div>
+        </div>
+
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/device-desktop-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Sam’s MacBook-Pro-2</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/device-mobile-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Sam’s iPhone 16</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/device-mobile-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Sam’s iPad</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/synced-tabs-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Add a device</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/settings-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Manage device settings</span>
+          </span>
+        </button>
+      </section>
+    </div>
+
+    <!-- ============================================================
+         App menu (hamburger) panel — minimal; only "Account" is live.
+         ============================================================ -->
+    <div class="panel app-menu-panel" id="app-menu-panel" role="menu" aria-label="Application menu" hidden>
+      <button class="menu-item" type="button" data-action="open-account">
+        <span class="menu-item__icon">
+          <img src="assets/icons/account-16.svg" alt="" />
+        </span>
+        <span class="menu-item__labels">
+          <span class="menu-item__title">Account</span>
+        </span>
+        <span class="menu-item__chevron">
+          <img src="assets/icons/chevron-right-16.svg" alt="" />
+        </span>
+      </button>
+
+      <div class="panel-divider"></div>
+
+      <button class="menu-item" type="button">
+        <span class="menu-item__icon">
+          <img src="assets/icons/bookmarks-16.svg" alt="" />
+        </span>
+        <span class="menu-item__labels">
+          <span class="menu-item__title">Bookmarks</span>
+        </span>
+      </button>
+
+      <button class="menu-item" type="button">
+        <span class="menu-item__icon">
+          <img src="assets/icons/history-16.svg" alt="" />
+        </span>
+        <span class="menu-item__labels">
+          <span class="menu-item__title">History</span>
+        </span>
+      </button>
+
+      <button class="menu-item" type="button">
+        <span class="menu-item__icon">
+          <img src="assets/icons/extensions-16.svg" alt="" />
+        </span>
+        <span class="menu-item__labels">
+          <span class="menu-item__title">Extensions</span>
+        </span>
+      </button>
+
+      <div class="panel-divider"></div>
+
+      <button class="menu-item" type="button">
+        <span class="menu-item__icon">
+          <img src="assets/icons/settings-16.svg" alt="" />
+        </span>
+        <span class="menu-item__labels">
+          <span class="menu-item__title">Settings</span>
+        </span>
+      </button>
+    </div>
+
+    <!-- Simulation modal — a lightweight confirmation dialog used by variant B
+         to stand in for flows that live outside the account menu (add profile,
+         turn on sync, connect a device). One confirm click triggers the state
+         change. -->
+    <div class="sim-modal" id="sim-modal" role="dialog" aria-modal="true" aria-labelledby="sim-modal-title" hidden>
+      <div class="sim-modal__backdrop" id="sim-modal-backdrop"></div>
+      <div class="sim-modal__dialog">
+        <button class="sim-modal__close" id="sim-modal-close" type="button" aria-label="Close">×</button>
+        <h2 class="sim-modal__title" id="sim-modal-title">Title</h2>
+        <p class="sim-modal__body" id="sim-modal-body">Description</p>
+        <div class="sim-modal__actions">
+          <button class="moz-button moz-button--ghost" id="sim-modal-cancel" type="button">Cancel</button>
+          <button class="moz-button moz-button--primary" id="sim-modal-confirm" type="button">Confirm</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dev switcher — visible by default. Click × to hide for the current
+         page load only (refresh restores it). Append ?dev=0 to the URL to
+         force-hide for moderated test sessions. The active variant is
+         written to ?variant=a|b in the URL so the link is shareable. -->
+    <div class="dev-switcher" id="dev-switcher" aria-label="Variant switcher">
+      <span class="dev-switcher__label">Variant</span>
+      <div class="dev-switcher__group" role="group">
+        <button class="dev-switcher__btn is-active" data-variant="a" type="button">A</button>
+        <button class="dev-switcher__btn" data-variant="b" type="button">B</button>
+        <!-- Variant C hidden from the switcher; still accessible via ?variant=c URL. -->
+        <button class="dev-switcher__btn" data-variant="c" type="button" hidden>C</button>
+      </div>
+      <button class="dev-switcher__hide" id="dev-switcher-hide" type="button" aria-label="Hide switcher">×</button>
+    </div>
+
+    <script src="scripts/state.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+/* Hamburger (app menu) panel — anchored below the hamburger button. */
+
+.app-menu-panel {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  padding: 8px;
+}
+
+.app-menu-panel[hidden] {
+  display: none;
+}

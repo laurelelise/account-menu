@@ -1,0 +1,454 @@
+/* Firefox browser chrome — static, matching Figma 114:39153. */
+
+body {
+  min-height: 100vh;
+  background: #000000;
+  padding: 24px;
+}
+
+/* Outer browser window — Figma 114:39154: canvas bg, 16 corner, 1px d2c8ec stroke, 20px drop shadow */
+.browser-window {
+  max-width: 1280px;
+  margin: 0 auto;
+  background: var(--background\/color\/canvas);
+  border: 1px solid var(--border\/color\/default);
+  border-radius: var(--platform\/border-radius\/window);
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Toolbox — wraps tabstrip + nav toolbar as a single rounded panel.
+   Figma toolbox: 1px d2c8ec stroke OUTSIDE, corner 12, gray chrome drop-shadow. */
+.toolbox {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border\/color\/default);
+  border-radius: var(--platform\/border-radius\/chrome);
+  box-shadow: var(--chrome\/inner-panel\/shadow);
+  overflow: clip;
+  flex-shrink: 0;
+}
+
+.tabstrip,
+.nav-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 var(--space\/small);
+  height: 44px;
+  flex-shrink: 0;
+}
+
+/* Tabstrip — white base with horizontal warm gradient overlay (Figma 114:39153). */
+.tabstrip {
+  gap: 8px;
+  padding: 0 8px;
+  background: linear-gradient(
+      90deg,
+      #eaddff 40%,
+      #ffdbc5 100%
+    ),
+    #ffffff;
+  background-blend-mode: normal;
+}
+
+/* Navigation toolbar — plain solid white, no gradient. */
+.nav-toolbar {
+  background: var(--toolbar\/background\/color);
+  border-top: 1px solid var(--toolbox\/border\/color);
+  padding: 0 var(--space\/small);
+  gap: 2px;
+}
+
+/* macOS traffic-lights area — scaled up for prototype legibility.
+   Width is tight to the image so tabs sit close to the controls. */
+.tabstrip__traffic-lights {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 84px;
+  height: 32px;
+  flex-shrink: 0;
+  padding-left: 12px;
+}
+
+.tabstrip__traffic-lights > img {
+  width: 72px;
+  height: 18px;
+  display: block;
+}
+
+/* Tabs container */
+.tabstrip__tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+.tabstrip__trailing {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+/* Single tab */
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  padding: 0 8px;
+  border-radius: var(--border\/radius\/xlarge);
+  background: var(--tab\/background\/color);
+  color: var(--tab\/text\/color);
+  font-size: var(--font-size\/root);
+  white-space: nowrap;
+  min-width: 0;
+  flex-shrink: 0;
+  cursor: default;
+}
+
+.tab--pinned {
+  width: 32px;
+  padding: 0;
+  justify-content: center;
+}
+
+.tab--active {
+  background: var(--tab\/background\/color\/active);
+  color: var(--tab\/text\/color\/active);
+  padding: 0 4px 0 10px;
+  width: 212px;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+.tab__favicon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.tab__title {
+  flex: 1 0 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: var(--font-size\/root);
+}
+
+.tab__close {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+.tab__close > img {
+  width: 14px;
+  height: 14px;
+}
+
+.tab__close:hover {
+  background: var(--toolbar\/button\/background\/color\/hover);
+}
+
+.nav-toolbar__leading,
+.nav-toolbar__trailing {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+/* Urlbar — 32px tall, 16px corner (Figma 114:39153 urlbar container). */
+.urlbar {
+  flex: 1 0 0;
+  min-width: 0;
+  height: 32px;
+  margin: 0 6px;
+  padding: 0 2px;
+  border-radius: var(--border\/radius\/xlarge);
+  border: 1px solid var(--toolbar\/field\/border\/color);
+  background: var(--toolbar\/field\/background\/color);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.urlbar-icon {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+.urlbar-icon > img {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.urlbar-icon:hover {
+  background: var(--toolbar\/button\/background\/color\/hover);
+}
+
+.urlbar__address {
+  flex: 1 0 0;
+  min-width: 0;
+  padding: 0 8px;
+  font-size: var(--font-size\/root);
+  color: var(--text\/color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* VPN on-badge — 52×32 pill with 12px vpn-on icon + "VPN" label; transparent bg. */
+.vpn-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 52px;
+  height: 32px;
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--icon\/color\/success);
+  flex-shrink: 0;
+  padding: 0 8px;
+  border: 0;
+  font-size: var(--font-size\/small);
+  font-weight: var(--font\/weight\/semibold);
+}
+
+.vpn-badge:hover {
+  background: var(--toolbar\/button\/background\/color\/hover);
+}
+
+.vpn-badge > img {
+  width: 12px;
+  height: 12px;
+  display: block;
+}
+
+.vpn-badge__label {
+  font-size: 10px;
+  font-weight: var(--font\/weight\/semibold);
+  color: var(--icon\/color\/success);
+  letter-spacing: 0.2px;
+}
+
+/* Account toolbar button uses the account-16 icon between VPN and Extensions. */
+
+/* Window-switcher uses the Firefox gradient globe; render larger than default 16. */
+.toolbar-button--window-switcher {
+  width: 36px;
+  height: 36px;
+}
+
+.toolbar-button--window-switcher > img {
+  width: 32px;
+  height: 32px;
+}
+
+.toolbar-button--account[aria-expanded="true"] {
+  background: var(--button\/background\/color\/menu\/hover);
+}
+
+/* Account button: show account-16 when signed out, avatar when signed in. */
+.toolbar-button--account .account-button__icon {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.toolbar-button--account .account-button__avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  object-fit: cover;
+  display: none;
+}
+
+body[data-signin-state="signed-in"] .toolbar-button--account .account-button__icon {
+  display: none;
+}
+
+body[data-signin-state="signed-in"] .toolbar-button--account .account-button__avatar {
+  display: block;
+}
+
+/* New-tab button sits inside the tabs flow, next to the last tab. */
+.tabstrip__new-tab {
+  margin-left: 2px;
+  flex-shrink: 0;
+}
+
+/* Window body holds sidebar + content as independent rounded panels. */
+.browser-window__body {
+  flex: 1 0 0;
+  display: flex;
+  gap: 6px;
+  min-height: 800px;
+}
+
+/* Sidebar — Figma: 12 corner on all sides, 1px d2c8ec stroke OUTSIDE, white bg,
+   chrome inner-panel gray shadow. */
+.sidebar {
+  width: 44px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 6px;
+  background: var(--toolbar\/background\/color);
+  border: 1px solid var(--border\/color\/default);
+  border-radius: var(--platform\/border-radius\/chrome);
+  box-shadow: var(--chrome\/inner-panel\/shadow);
+}
+
+/* Main content — no border (per user preference). */
+.content {
+  flex: 1 0 0;
+  position: relative;
+  border-radius: var(--platform\/border-radius\/chrome);
+  box-shadow: var(--chrome\/inner-panel\/shadow);
+  overflow: clip;
+  background: #ffffff;
+}
+
+/* Neutral wireframe placeholder — keeps testers focused on the chrome. */
+.wireframe {
+  --wf-shape: #e5e5e8;
+  --wf-shape-strong: #d2d2d8;
+  position: absolute;
+  inset: 0;
+  padding: 32px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  pointer-events: none;
+}
+
+.wireframe__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.wireframe__logo {
+  width: 110px;
+  height: 20px;
+  background: var(--wf-shape-strong);
+  border-radius: 4px;
+}
+
+.wireframe__nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex: 1 0 0;
+  margin-left: 24px;
+}
+
+.wireframe__nav > span {
+  height: 10px;
+  width: 56px;
+  background: var(--wf-shape);
+  border-radius: 9999px;
+}
+
+.wireframe__circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  background: var(--wf-shape-strong);
+  flex-shrink: 0;
+}
+
+.wireframe__hero {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 32px;
+  background: var(--wf-shape);
+  border-radius: 12px;
+  align-items: flex-start;
+}
+
+.wireframe__bar {
+  height: 12px;
+  width: 70%;
+  background: var(--wf-shape-strong);
+  border-radius: 9999px;
+}
+
+.wireframe__bar--xl {
+  height: 24px;
+  width: 60%;
+  background: var(--wf-shape-strong);
+}
+
+.wireframe__bar--lg {
+  width: 80%;
+}
+
+.wireframe__bar--md {
+  width: 50%;
+}
+
+.wireframe__bar--short {
+  width: 40%;
+}
+
+.wireframe__cta {
+  margin-top: 12px;
+  width: 120px;
+  height: 32px;
+  border-radius: 9999px;
+  background: var(--wf-shape-strong);
+}
+
+.wireframe__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.wireframe__card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.wireframe__image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: var(--wf-shape);
+  border-radius: 8px;
+}
+
+.content__background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}

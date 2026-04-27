@@ -1,0 +1,100 @@
+/* Account menu panel — anchored below the Account toolbar button.
+   Positioning is computed in scripts/state.js; CSS just provides the base. */
+
+.account-panel {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  transform: translate3d(0, 0, 0);
+  padding: 8px;
+}
+
+.account-panel[hidden] {
+  display: none;
+}
+
+/* 9px empty spacer (used after the promo callout in Signed-out, matching
+   Figma 114:50804 — a Panel/Divider variant without a rule line). */
+.panel-spacer {
+  height: 9px;
+  width: 100%;
+  padding: 4px 8px;
+  flex-shrink: 0;
+}
+
+/* Only one main-panel state section is visible at a time, scoped by both
+   variant and state. The 'devices-added' state shows connected-devices in
+   the main panel and pops the device-detail flyout sub-panel beside it. */
+.account-panel > [data-menu-state] {
+  display: none;
+}
+
+.account-panel[data-variant="a"][data-active-state="signed-out"]            > [data-variant="a"][data-menu-state="signed-out"],
+.account-panel[data-variant="a"][data-active-state="signed-in"]             > [data-variant="a"][data-menu-state="signed-in"],
+.account-panel[data-variant="a"][data-active-state="connected-devices"]     > [data-variant="a"][data-menu-state="connected-devices"],
+.account-panel[data-variant="b"][data-active-state="signed-out"]            > [data-variant="b"][data-menu-state="signed-out"],
+.account-panel[data-variant="b"][data-active-state="signed-in-sync-off"]    > [data-variant="b"][data-menu-state="signed-in-sync-off"],
+.account-panel[data-variant="b"][data-active-state="signed-in"]             > [data-variant="b"][data-menu-state="signed-in"],
+.account-panel[data-variant="b"][data-active-state="connected-devices"]     > [data-variant="b"][data-menu-state="connected-devices"],
+/* Variant C is a single layout shown for any active state. */
+.account-panel[data-variant="c"]                                            > [data-variant="c"][data-menu-state="signed-in"] {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+/* Sub-panel — separate floating panel anchored beside the main panel.
+   Position is computed in scripts/state.js. */
+.sub-panel {
+  position: fixed;
+  z-index: 1001;
+  top: 0;
+  left: 0;
+  padding: 8px;
+}
+
+.sub-panel[hidden] {
+  display: none;
+}
+
+.sub-panel > [data-sub-state] {
+  display: none;
+}
+
+.sub-panel[data-variant="a"][data-active-state="device-detail"] > [data-variant="a"][data-sub-state="device-detail"],
+.sub-panel[data-variant="b"][data-active-state="device-detail"] > [data-variant="b"][data-sub-state="device-detail"],
+.sub-panel[data-variant="b"][data-active-state="profiles"]      > [data-variant="b"][data-sub-state="profiles"],
+.sub-panel[data-variant="b"][data-active-state="devices-list"]  > [data-variant="b"][data-sub-state="devices-list"],
+/* Variant C reuses variant B's sub-panel content for both flyouts. */
+.sub-panel[data-variant="c"][data-active-state="device-detail"] > [data-variant="b"][data-sub-state="device-detail"],
+.sub-panel[data-variant="c"][data-active-state="profiles"]      > [data-variant="b"][data-sub-state="profiles"] {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+/* Header row — avatar + labels, non-interactive (not a button). */
+.menu-item--header {
+  cursor: default;
+  background: transparent;
+}
+
+.menu-item--header:hover,
+.menu-item--header:focus-visible {
+  background: transparent;
+}
+
+/* Menu scrim — transparent click-catcher under the panels. */
+.menu-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: transparent;
+}
+
+.menu-scrim[hidden] {
+  display: none;
+}

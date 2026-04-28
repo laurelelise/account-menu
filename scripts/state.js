@@ -270,25 +270,42 @@ const simModal = document.getElementById("sim-modal");
 const simModalTitle = document.getElementById("sim-modal-title");
 const simModalBody = document.getElementById("sim-modal-body");
 const simModalConfirm = document.getElementById("sim-modal-confirm");
+const simModalSecondary = document.getElementById("sim-modal-secondary");
 const simModalCancel = document.getElementById("sim-modal-cancel");
 const simModalClose = document.getElementById("sim-modal-close");
 const simModalBackdrop = document.getElementById("sim-modal-backdrop");
 let simModalOnConfirm = null;
+let simModalOnSecondary = null;
 
-function showSimModal({ title, body, action, onConfirm }) {
+function showSimModal({ title, body, action, onConfirm, secondary }) {
   simModalTitle.textContent = title;
   simModalBody.textContent = body;
   simModalConfirm.textContent = action;
   simModalOnConfirm = onConfirm;
+  if (secondary) {
+    simModalSecondary.textContent = secondary.label;
+    simModalSecondary.hidden = false;
+    simModalOnSecondary = secondary.onClick;
+  } else {
+    simModalSecondary.hidden = true;
+    simModalOnSecondary = null;
+  }
   simModal.hidden = false;
   simModalConfirm.focus();
 }
 function hideSimModal() {
   simModal.hidden = true;
   simModalOnConfirm = null;
+  simModalOnSecondary = null;
+  simModalSecondary.hidden = true;
 }
 simModalConfirm.addEventListener("click", () => {
   const fn = simModalOnConfirm;
+  hideSimModal();
+  if (fn) fn();
+});
+simModalSecondary.addEventListener("click", () => {
+  const fn = simModalOnSecondary;
   hideSimModal();
   if (fn) fn();
 });
@@ -349,14 +366,28 @@ const ACTIONS = {
     if (section) section.dataset.promoState = "compact";
   },
   "manage-sync": () => {
+    // Reachable only from variant B's signed-in / connected-devices "Sync is
+    // On" row, so sync is always on here. The Turn off sync secondary lands
+    // on signed-in-sync-off, which strips the connected-device representation
+    // — today's behavior, where sync is the link between devices.
     closePanels({ silent: true });
+    const here = state.accountState;
+    const body = here === "connected-devices"
+      ? "Choose what gets synced across your devices — bookmarks, history, passwords, open tabs, and more — and review recent sync activity. Turning off sync will disconnect your other devices."
+      : "Choose what gets synced across your devices — bookmarks, history, passwords, open tabs, and more — and review recent sync activity.";
     showSimModal({
       title: "Sync settings",
-      body:
-        "Choose what gets synced across your devices — bookmarks, history, passwords, open tabs, and more — and review recent sync activity.",
+      body,
       action: "Open Sync settings",
       onConfirm: () => {
         openPanel("account");
+      },
+      secondary: {
+        label: "Turn off sync",
+        onClick: () => {
+          openPanel("account");
+          setAccountState("signed-in-sync-off");
+        },
       },
     });
   },
@@ -449,8 +480,9 @@ const ACTIONS = {
     let action;
     if (syncOn) {
       title = "Manage Sync";
-      body =
-        "Manage what you’re syncing across all your signed-in devices — bookmarks, history, open tabs, passwords, and more.";
+      body = here === "connected-devices"
+        ? "Manage what you’re syncing across all your signed-in devices — bookmarks, history, open tabs, passwords, and more. Turning off sync will disconnect your other devices."
+        : "Manage what you’re syncing across all your signed-in devices — bookmarks, history, open tabs, passwords, and more.";
       action = "Open Sync settings";
     } else if (here === "signed-in-sync-off") {
       title = "Turn on Sync";
@@ -473,6 +505,15 @@ const ACTIONS = {
           setAccountState("signed-in");
         }
       },
+      secondary: syncOn
+        ? {
+            label: "Turn off sync",
+            onClick: () => {
+              openPanel("account");
+              setAccountState("signed-in-sync-off");
+            },
+          }
+        : undefined,
     });
   },
   "open-device": (target) => {

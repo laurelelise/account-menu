@@ -393,6 +393,10 @@ const ACTIONS = {
   },
   "manage-account": () => {
     closePanels({ silent: true });
+    // Variant A only: surface a secondary "Sign out" so participants can
+    // exit the signed-in flow without leaving the modal. Confirming returns
+    // the menu to the signed-out state.
+    const offerSignOut = !isVariantB();
     showSimModal({
       title: "Manage your Mozilla account",
       body:
@@ -402,6 +406,15 @@ const ACTIONS = {
         // Reopen the menu where the user left off — no state change.
         openPanel("account");
       },
+      secondary: offerSignOut
+        ? {
+            label: "Sign out",
+            onClick: () => {
+              openPanel("account");
+              setAccountState("signed-out");
+            },
+          }
+        : undefined,
     });
   },
   "add-device": () => {

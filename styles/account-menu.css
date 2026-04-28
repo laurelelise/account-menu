@@ -31,6 +31,7 @@
 }
 
 .account-panel[data-variant="a"][data-active-state="signed-out"]            > [data-variant="a"][data-menu-state="signed-out"],
+.account-panel[data-variant="a"][data-active-state="signed-in-sync-off"]    > [data-variant="a"][data-menu-state="signed-in-sync-off"],
 .account-panel[data-variant="a"][data-active-state="signed-in"]             > [data-variant="a"][data-menu-state="signed-in"],
 .account-panel[data-variant="a"][data-active-state="connected-devices"]     > [data-variant="a"][data-menu-state="connected-devices"],
 .account-panel[data-variant="b"][data-active-state="signed-out"]            > [data-variant="b"][data-menu-state="signed-out"],

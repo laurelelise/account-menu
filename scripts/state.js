@@ -39,12 +39,23 @@ function readStateFromHash() {
 
 function setAccountState(next) {
   if (!VALID_STATES.has(next)) return;
+  // Early return on no-op so the hashchange listener can't trigger a
+  // write→read→write loop once we mirror state to the URL below.
+  if (next === state.accountState) return;
   state.accountState = next;
   accountPanel.dataset.activeState = effectiveMainState(next);
   document.body.dataset.signinState =
     next === "signed-out" ? "signed-out" : "signed-in";
   // Sub-panel is only opened by explicit clicks on a device row, never auto.
   if (next !== "devices-added") hideSubPanel();
+  // Mirror the visible state to the URL so research tooling can compare
+  // the starting URL to the ending URL. Use replaceState to keep the back
+  // button useful (no per-step history entries). Use the effective state so
+  // the URL matches what the panel is rendering — never the internal
+  // "devices-added" sub-panel display state.
+  const url = new URL(window.location.href);
+  url.hash = "state=" + effectiveMainState(next);
+  window.history.replaceState(null, "", url);
 }
 
 /* Sub-panel trigger: the .menu-item the user clicked to open the flyout.
@@ -294,10 +305,9 @@ function isVariantB() {
 
 const ACTIONS = {
   signin: () => {
-    // Variant B splits sign-in and sync-on into separate steps; variant A
-    // signs in and lands directly on the synced state.
-    const variant = accountPanel.dataset.variant === "b" ? "b" : "a";
-    const targetState = variant === "b" ? "signed-in-sync-off" : "signed-in";
+    // Both variants now treat plain Sign in as a sign-in-only step. Sync only
+    // turns on when the user explicitly opts in via Secure Sync / Sync your
+    // Data, or implicitly when they connect a phone.
     closePanels({ silent: true });
     showSimModal({
       title: "Sign in to Firefox",
@@ -306,7 +316,7 @@ const ACTIONS = {
       action: "Sign in",
       onConfirm: () => {
         openPanel("account");
-        setAccountState(targetState);
+        setAccountState("signed-in-sync-off");
       },
     });
   },
@@ -418,27 +428,48 @@ const ACTIONS = {
         "Profiles keep your browsing separate — each has its own history, tabs, bookmarks, and settings.",
       action: "Create profile",
       onConfirm: () => {
-        document.body.dataset.profilesMode = "many";
+        setProfilesMode("many");
         openPanel("account");
       },
     });
   },
   "secure-sync": () => {
-    // Variant A: copy depends on whether sync is already on.
-    // - Signed-out: "Sign in to sync" CTA → confirm transitions to signed-in.
+    // Variant A: copy depends on the current state.
+    // - Signed-out: "Sign in to sync" CTA → confirm transitions to signed-in
+    //   (sync on).
+    // - Signed-in-sync-off: "Turn on Sync" CTA → confirm transitions to
+    //   signed-in (sync on).
     // - Signed-in / connected-devices: "Manage Sync" copy — informational,
     //   no state change.
     closePanels({ silent: true });
-    const syncOn = state.accountState !== "signed-out";
+    const here = state.accountState;
+    const syncOn = here === "signed-in" || here === "connected-devices";
+    let title;
+    let body;
+    let action;
+    if (syncOn) {
+      title = "Manage Sync";
+      body =
+        "Manage what you’re syncing across all your signed-in devices — bookmarks, history, open tabs, passwords, and more.";
+      action = "Open Sync settings";
+    } else if (here === "signed-in-sync-off") {
+      title = "Turn on Sync";
+      body =
+        "Sync keeps your bookmarks, history, open tabs, and passwords up to date across your devices.";
+      action = "Turn on sync";
+    } else {
+      title = "Sign in to sync";
+      body =
+        "Sync keeps your bookmarks, history, open tabs, and passwords up to date across your devices.";
+      action = "Turn on sync";
+    }
     showSimModal({
-      title: syncOn ? "Manage Sync" : "Sign in to sync",
-      body: syncOn
-        ? "Manage what you’re syncing across all your signed-in devices — bookmarks, history, open tabs, passwords, and more."
-        : "Sync keeps your bookmarks, history, open tabs, and passwords up to date across your devices.",
-      action: syncOn ? "Open Sync settings" : "Turn on sync",
+      title,
+      body,
+      action,
       onConfirm: () => {
         openPanel("account");
-        if (state.accountState === "signed-out") {
+        if (!syncOn) {
           setAccountState("signed-in");
         }
       },
@@ -465,7 +496,7 @@ const ACTIONS = {
           "Profiles keep your browsing separate — each has its own history, tabs, bookmarks, and settings.",
         action: "Create profile",
         onConfirm: () => {
-          document.body.dataset.profilesMode = "many";
+          setProfilesMode("many");
           openPanel("account");
           // Sub-panel only opens on explicit click — user clicks Profiles › themselves.
         },
@@ -614,6 +645,23 @@ document.body.dataset.profilesMode = getProfilesModeFromURL();
 window.addEventListener("popstate", () => {
   document.body.dataset.profilesMode = getProfilesModeFromURL();
 });
+
+/* Set profiles mode and mirror it to the URL (for start-vs-end URL
+   comparison in research tooling). Only flips the body attribute when
+   it actually changes. */
+function setProfilesMode(mode) {
+  const next = mode === "many" ? "many" : "single";
+  if (document.body.dataset.profilesMode !== next) {
+    document.body.dataset.profilesMode = next;
+  }
+  const url = new URL(window.location.href);
+  if (next === "many") {
+    url.searchParams.set("profiles", "many");
+  } else {
+    url.searchParams.delete("profiles");
+  }
+  window.history.replaceState(null, "", url);
+}
 
 
 const devParam = new URLSearchParams(window.location.search).get("dev");

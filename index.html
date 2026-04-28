@@ -458,6 +458,117 @@
       </section>
 
       <!-- ============================================================
+           Signed-in, sync off — variant A. Same layout as signed-in,
+           but Secure Sync row reads as a turn-on prompt and there is
+           no "Sync now" icon button.
+           ============================================================ -->
+      <section class="panel__slot" data-variant="a" data-menu-state="signed-in-sync-off" aria-label="Signed in, sync off">
+        <button class="menu-item" type="button" data-action="manage-account">
+          <span class="menu-item__avatar">
+            <img src="assets/avatars/Ellipse%202.png" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title menu-item__title--semibold">sam@gmail.com</span>
+            <span class="menu-item__subtitle">Manage Account</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <div class="profiles-after-create">
+          <div class="menu-subheader">Profiles</div>
+
+          <button class="menu-item" type="button">
+            <span class="menu-item__profile-icon">
+              <img src="assets/icons/profile-heart-16.svg" alt="" />
+            </span>
+            <span class="menu-item__labels">
+              <span class="menu-item__title">Original Profile</span>
+            </span>
+            <span class="menu-item__chevron">
+              <img src="assets/icons/chevron-right-16.svg" alt="" />
+            </span>
+          </button>
+
+          <button class="menu-item" type="button">
+            <span class="menu-item__profile-icon menu-item__profile-icon--success">
+              <img src="assets/icons/profile-makeup-16.svg" alt="" />
+            </span>
+            <span class="menu-item__labels">
+              <span class="menu-item__title">Work</span>
+            </span>
+          </button>
+
+          <div class="panel-divider"></div>
+        </div>
+
+        <button class="menu-item menu-item--no-icon" type="button" data-action="create-profile">
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Create a New Profile</span>
+            <span class="menu-item__subtitle">Keep your browsing separate</span>
+          </span>
+          <span class="menu-item__chevron">
+            <img src="assets/icons/chevron-right-16.svg" alt="" />
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button" data-action="add-device">
+          <span class="menu-item__icon">
+            <img src="assets/icons/device-mobile-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Connect a Phone</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <div class="menu-subheader">Privacy boosts</div>
+
+        <button class="menu-item" type="button" data-action="secure-sync">
+          <span class="menu-item__icon">
+            <img src="assets/icons/synced-tabs-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Secure Sync</span>
+            <span class="menu-item__subtitle">Get your data on other devices</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon">
+            <img src="assets/icons/logo-monitor-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Monitor</span>
+            <span class="menu-item__subtitle">Get data breach alerts</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon">
+            <img src="assets/icons/logo-relay-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Relay</span>
+            <span class="menu-item__subtitle">Defend your inbox from spam</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon">
+            <img src="assets/icons/logo-vpn-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">VPN</span>
+            <span class="menu-item__subtitle">Protect 50GB of your browsing free</span>
+          </span>
+        </button>
+      </section>
+
+      <!-- ============================================================
            Connected devices — Figma 114:50506
            ============================================================ -->
       <section class="panel__slot" data-variant="a" data-menu-state="connected-devices" aria-label="Connected devices">

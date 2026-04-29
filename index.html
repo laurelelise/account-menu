@@ -147,12 +147,129 @@
           <button class="toolbar-button" aria-label="Bookmarks" tabindex="-1">
             <img src="assets/icons/bookmarks-16.svg" alt="" />
           </button>
-          <button class="toolbar-button" aria-label="History" tabindex="-1">
+          <button class="toolbar-button" type="button" data-action="toggle-history" aria-label="History">
             <img src="assets/icons/history-16.svg" alt="" />
+          </button>
+          <button
+            class="toolbar-button toolbar-button--sidebar-tool"
+            type="button"
+            data-action="toggle-synced-tabs"
+            aria-label="Tabs from other devices"
+          >
+            <img src="assets/icons/synced-tabs-16-sidebar.svg" alt="" />
           </button>
           <button class="toolbar-button" aria-label="Settings" tabindex="-1">
             <img src="assets/icons/settings-16.svg" alt="" />
           </button>
+        </aside>
+
+        <aside class="sidebar-panel" id="sidebar-panel" aria-label="Sidebar panel" hidden>
+          <!-- Synced tabs view (Sam's iPhone 16 / Sam's iPad) -->
+          <div class="sidebar-panel__view" data-panel-mode="synced-tabs">
+            <div class="sidebar-panel__header">
+              <p class="sidebar-panel__title">Tabs from other devices</p>
+              <button class="icon-button" type="button" data-action="close-sidebar-panel" aria-label="Close">
+                <img src="assets/icons/close-16.svg" alt="" />
+              </button>
+            </div>
+
+            <div class="sidebar-panel__search">
+              <input type="search" placeholder="Search" aria-label="Search synced tabs" />
+            </div>
+
+            <section class="sidebar-panel__group">
+              <button class="sidebar-panel__group-header" type="button" tabindex="-1">
+                <img class="sidebar-panel__group-chevron" src="assets/icons/chevron-right-16.svg" alt="" />
+                <span>Sam’s iPhone 16</span>
+              </button>
+              <ul class="sidebar-panel__tabs">
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>Airbnb | Vacation rentals, cabins, beach houses</span></li>
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>The New York Times - Breaking News</span></li>
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>Reddit - Dive into anything</span></li>
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>Google Maps - Directions to SFO</span></li>
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>Wikipedia, the free encyclopedia</span></li>
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>YouTube - Lo-fi hip hop radio</span></li>
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>Etsy - Handmade gifts for mom</span></li>
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>Hacker News</span></li>
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>NPR | Morning Edition</span></li>
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>Strava | Saturday morning ride</span></li>
+              </ul>
+              <a class="sidebar-panel__show-all" href="#" tabindex="-1">Show all</a>
+            </section>
+
+            <section class="sidebar-panel__group">
+              <button class="sidebar-panel__group-header" type="button" tabindex="-1">
+                <img class="sidebar-panel__group-chevron" src="assets/icons/chevron-right-16.svg" alt="" />
+                <span>Sam’s iPad</span>
+              </button>
+              <ul class="sidebar-panel__tabs">
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>Goodreads | Books to read this fall</span></li>
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>The Atlantic - Latest essays</span></li>
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>Bon Appétit - Weeknight dinner ideas</span></li>
+              </ul>
+              <a class="sidebar-panel__show-all" href="#" tabindex="-1">Show all</a>
+            </section>
+          </div>
+
+          <!-- History view (current device) -->
+          <div class="sidebar-panel__view" data-panel-mode="history">
+            <div class="sidebar-panel__header">
+              <p class="sidebar-panel__title">History</p>
+              <button class="icon-button" type="button" data-action="close-sidebar-panel" aria-label="Close">
+                <img src="assets/icons/close-16.svg" alt="" />
+              </button>
+            </div>
+
+            <div class="sidebar-panel__search">
+              <input type="search" placeholder="Search history" aria-label="Search history" />
+            </div>
+
+            <section class="sidebar-panel__group">
+              <button class="sidebar-panel__group-header" type="button" tabindex="-1">
+                <img class="sidebar-panel__group-chevron" src="assets/icons/chevron-right-16.svg" alt="" />
+                <span>Today — Tuesday, April 28, 2026</span>
+              </button>
+              <ul class="sidebar-panel__tabs">
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>Google Flights — SFO to JFK May 8–14</span></li>
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>Airbnb — Brooklyn rentals near Prospect Park</span></li>
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>Eater NY — Where to eat in the West Village</span></li>
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>TripAdvisor — Top 10 things to do in NYC</span></li>
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>The Strand Bookstore — visit information</span></li>
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>Yelp — best brunch in Williamsburg</span></li>
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>NYC.gov — Self-guided walking tours</span></li>
+              </ul>
+              <a class="sidebar-panel__show-all" href="#" tabindex="-1">Show all</a>
+            </section>
+
+            <section class="sidebar-panel__group">
+              <button class="sidebar-panel__group-header" type="button" tabindex="-1">
+                <img class="sidebar-panel__group-chevron" src="assets/icons/chevron-right-16.svg" alt="" />
+                <span>Yesterday — Monday, April 27, 2026</span>
+              </button>
+              <ul class="sidebar-panel__tabs">
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>Etsy — Mother’s Day gifts under $100</span></li>
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>The Bouqs Co. — Mother’s Day flower delivery</span></li>
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>Levain Bakery — cookie tins shipped overnight</span></li>
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>Williams Sonoma — gift ideas for Mom</span></li>
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>Google — best Mother’s Day gifts 2026</span></li>
+              </ul>
+              <a class="sidebar-panel__show-all" href="#" tabindex="-1">Show all</a>
+            </section>
+
+            <section class="sidebar-panel__group">
+              <button class="sidebar-panel__group-header" type="button" tabindex="-1">
+                <img class="sidebar-panel__group-chevron" src="assets/icons/chevron-right-16.svg" alt="" />
+                <span>Sunday, April 26, 2026</span>
+              </button>
+              <ul class="sidebar-panel__tabs">
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>Hotels.com — boutique hotels in Manhattan</span></li>
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>Broadway.com — Hamilton ticket availability</span></li>
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>Time Out NY — things to do this weekend</span></li>
+                <li><span class="sidebar-panel__favicon" aria-hidden="true"></span><span>MTA — NYC subway route planner</span></li>
+              </ul>
+              <a class="sidebar-panel__show-all" href="#" tabindex="-1">Show all</a>
+            </section>
+          </div>
         </aside>
 
         <main class="content" aria-hidden="true">
@@ -1181,7 +1298,10 @@
             <img src="assets/icons/profile-heart-16.svg" alt="" />
           </span>
           <span class="menu-item__labels">
-            <span class="menu-item__title">Original Profile</span>
+            <span class="menu-item__title-row">
+              <span class="menu-item__title">Original Profile</span>
+              <span class="menu-item__tag">Current</span>
+            </span>
           </span>
         </button>
 
@@ -1225,21 +1345,24 @@
 
         <div class="panel-divider"></div>
 
-        <button class="menu-item" type="button">
+        <button class="menu-item" type="button" data-action="open-history">
           <span class="menu-item__icon"><img src="assets/icons/device-desktop-16.svg" alt="" /></span>
           <span class="menu-item__labels">
-            <span class="menu-item__title">Sam’s MacBook-Pro-2</span>
+            <span class="menu-item__title-row">
+              <span class="menu-item__title">Sam’s MacBook-Pro-2</span>
+              <span class="menu-item__tag">Current</span>
+            </span>
           </span>
         </button>
 
-        <button class="menu-item" type="button">
+        <button class="menu-item" type="button" data-action="open-synced-tabs">
           <span class="menu-item__icon"><img src="assets/icons/device-mobile-16.svg" alt="" /></span>
           <span class="menu-item__labels">
             <span class="menu-item__title">Sam’s iPhone 16</span>
           </span>
         </button>
 
-        <button class="menu-item" type="button">
+        <button class="menu-item" type="button" data-action="open-synced-tabs">
           <span class="menu-item__icon"><img src="assets/icons/device-mobile-16.svg" alt="" /></span>
           <span class="menu-item__labels">
             <span class="menu-item__title">Sam’s iPad</span>

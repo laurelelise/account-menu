@@ -12,6 +12,9 @@ const accountPanel = document.getElementById("account-panel");
 const appMenuPanel = document.getElementById("app-menu-panel");
 const subPanel = document.getElementById("sub-panel");
 const scrim = document.getElementById("menu-scrim");
+const sidebarPanel = document.getElementById("sidebar-panel");
+const syncedTabsButton = document.querySelector('[data-action="toggle-synced-tabs"]');
+const historyButton = document.querySelector('[data-action="toggle-history"]');
 
 /* The main panel shows connected-devices when the state is devices-added —
    the device-detail content flies out into the separate sub-panel. */
@@ -48,6 +51,11 @@ function setAccountState(next) {
     next === "signed-out" ? "signed-out" : "signed-in";
   // Sub-panel is only opened by explicit clicks on a device row, never auto.
   if (next !== "devices-added") hideSubPanel();
+  // Sync the devices-added body attribute (drives the chrome's synced-tabs
+  // sidebar icon visibility). Auto-close the sidebar panel when leaving
+  // connected-devices so participants never see a panel for a state they
+  // are no longer in.
+  syncDevicesAdded();
   // Mirror the visible state to the URL so research tooling can compare
   // the starting URL to the ending URL. Use replaceState to keep the back
   // button useful (no per-step history entries). Use the effective state so
@@ -56,6 +64,47 @@ function setAccountState(next) {
   const url = new URL(window.location.href);
   url.hash = "state=" + effectiveMainState(next);
   window.history.replaceState(null, "", url);
+}
+
+/* Synced-tabs sidebar panel ---------------------------------------------- */
+function syncDevicesAdded() {
+  const variantB = accountPanel.dataset.variant === "b";
+  const onConnected = effectiveMainState(state.accountState) === "connected-devices";
+  if (variantB && onConnected) {
+    document.body.dataset.devicesAdded = "true";
+  } else {
+    delete document.body.dataset.devicesAdded;
+    closeSidebarPanel();
+  }
+}
+
+function setSidebarToolActive(button, isActive) {
+  if (!button) return;
+  if (isActive) button.dataset.active = "true";
+  else delete button.dataset.active;
+}
+
+function openSidebarPanel(mode = "synced-tabs") {
+  document.body.dataset.sidebarPanel = mode;
+  if (sidebarPanel) sidebarPanel.hidden = false;
+  // Each sidebar tool only highlights when its own panel mode is showing.
+  setSidebarToolActive(syncedTabsButton, mode === "synced-tabs");
+  setSidebarToolActive(historyButton, mode === "history");
+}
+
+function closeSidebarPanel() {
+  delete document.body.dataset.sidebarPanel;
+  if (sidebarPanel) sidebarPanel.hidden = true;
+  setSidebarToolActive(syncedTabsButton, false);
+  setSidebarToolActive(historyButton, false);
+}
+
+function toggleSidebarPanelMode(mode) {
+  if (document.body.dataset.sidebarPanel === mode) {
+    closeSidebarPanel();
+  } else {
+    openSidebarPanel(mode);
+  }
 }
 
 /* Sub-panel trigger: the .menu-item the user clicked to open the flyout.
@@ -586,6 +635,26 @@ const ACTIONS = {
     closePanels({ silent: true });
     openPanel("account");
   },
+  /* Variant B's connected-devices flyout: clicking another device opens the
+     synced-tabs panel; clicking the current device opens the history panel.
+     Both close the account menu. */
+  "open-synced-tabs": () => {
+    closePanels();
+    openSidebarPanel("synced-tabs");
+  },
+  "open-history": () => {
+    closePanels();
+    openSidebarPanel("history");
+  },
+  "toggle-synced-tabs": () => {
+    toggleSidebarPanelMode("synced-tabs");
+  },
+  "toggle-history": () => {
+    toggleSidebarPanelMode("history");
+  },
+  "close-sidebar-panel": () => {
+    closeSidebarPanel();
+  },
 };
 
 document.addEventListener("click", (event) => {
@@ -680,6 +749,9 @@ function setVariant(v, { updateURL = true } = {}) {
     btn.classList.toggle("is-active", btn.dataset.variant === variant);
     btn.setAttribute("aria-pressed", String(btn.dataset.variant === variant));
   }
+  // The synced-tabs sidebar icon is variant-B-only, so any variant change
+  // needs to re-evaluate whether it should be visible.
+  syncDevicesAdded();
   if (updateURL) {
     const url = new URL(window.location.href);
     url.searchParams.set("variant", variant);

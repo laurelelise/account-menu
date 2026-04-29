@@ -321,6 +321,172 @@ body[data-signin-state="signed-in"] .toolbar-button--account .account-button__av
   box-shadow: var(--chrome\/inner-panel\/shadow);
 }
 
+/* Synced-tabs sidebar tool — only visible once devices are connected
+   (body[data-devices-added="true"] in Variant B). When the panel is open,
+   the icon picks up a tinted hover background to indicate active state. */
+.toolbar-button--sidebar-tool {
+  display: none;
+}
+
+body[data-devices-added="true"] .toolbar-button--sidebar-tool {
+  display: inline-flex;
+}
+
+/* Active-state highlight for any sidebar tool whose panel mode is open. */
+.sidebar .toolbar-button[data-active="true"] {
+  background: var(--toolbar\/button\/background\/color\/hover);
+}
+
+/* Sidebar panel — opens to the right of the icon strip when the user
+   selects a device row in Variant B's connected-devices flyout. Mirrors
+   Figma node 212:59459 styling. */
+.sidebar-panel {
+  width: 322px;
+  flex-shrink: 0;
+  display: none;
+  flex-direction: column;
+  padding: 12px;
+  background: var(--toolbar\/background\/color);
+  border: 1px solid var(--border\/color\/default);
+  border-radius: var(--platform\/border-radius\/chrome);
+  box-shadow: var(--chrome\/inner-panel\/shadow);
+  overflow: clip;
+  font-family: var(--platform\/font-size\/family);
+  color: var(--text\/color);
+}
+
+body[data-sidebar-panel] .sidebar-panel {
+  display: flex;
+}
+
+.sidebar-panel[hidden] {
+  display: none;
+}
+
+body[data-sidebar-panel] .sidebar-panel[hidden] {
+  display: flex;
+}
+
+/* The panel hosts two views (synced-tabs, history). Show only the one
+   that matches the body's current sidebar-panel mode. */
+.sidebar-panel__view {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1 0 0;
+  min-height: 0;
+}
+
+body[data-sidebar-panel="synced-tabs"] .sidebar-panel__view[data-panel-mode="synced-tabs"],
+body[data-sidebar-panel="history"]     .sidebar-panel__view[data-panel-mode="history"] {
+  display: flex;
+}
+
+.sidebar-panel__header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.sidebar-panel__title {
+  flex: 1 0 0;
+  margin: 0;
+  font-size: var(--font-size\/root);
+  font-weight: var(--font\/weight\/semibold);
+  color: var(--text\/color);
+}
+
+.sidebar-panel__search input {
+  width: 100%;
+  height: 32px;
+  padding: 0 10px;
+  border-radius: 9999px;
+  border: 1px solid var(--toolbar\/field\/border\/color);
+  background: var(--toolbar\/field\/background\/color);
+  font-family: inherit;
+  font-size: var(--font-size\/root);
+  color: var(--text\/color);
+}
+
+.sidebar-panel__search input:focus {
+  outline: 2px solid var(--color\/accent\/primary);
+  outline-offset: -1px;
+}
+
+.sidebar-panel__group {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-panel__group-header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 40px;
+  padding: 8px 4px;
+  background: transparent;
+  border: 0;
+  font-family: inherit;
+  font-size: var(--font-size\/root);
+  font-weight: var(--font\/weight\/semibold);
+  color: var(--text\/color);
+  text-align: left;
+  cursor: default;
+}
+
+.sidebar-panel__group-chevron {
+  width: 16px;
+  height: 16px;
+  transform: rotate(90deg);
+  transform-origin: 50% 50%;
+}
+
+.sidebar-panel__tabs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-panel__tabs li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  padding: 0 8px;
+  border-radius: var(--border\/radius\/xlarge);
+  font-size: var(--font-size\/root);
+  color: var(--tab\/text\/color);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sidebar-panel__tabs li > span:last-child {
+  flex: 1 0 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-panel__favicon {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--background\/color\/box\/info);
+  flex-shrink: 0;
+}
+
+.sidebar-panel__show-all {
+  margin-top: 4px;
+  padding: 4px 8px;
+  font-size: var(--font-size\/root);
+  color: var(--link\/color);
+  text-decoration: underline;
+}
+
 /* Main content — no border (per user preference). */
 .content {
   flex: 1 0 0;

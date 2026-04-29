@@ -344,6 +344,39 @@
   font-weight: var(--font\/weight\/semibold);
 }
 
+/* Inline row holding the title and an optional small tag (e.g. "Current"). */
+.menu-item__title-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.menu-item__title-row > .menu-item__title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Subtle pill marking the active row. Uses Nova's neutral box-info surface
+   token for the background and the deemphasized text color so it reads as
+   informational metadata rather than an interactive button. */
+.menu-item__tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 18px;
+  padding: 0 8px;
+  border-radius: 9999px;
+  background: var(--background\/color\/box\/info);
+  color: var(--text\/color\/deemphasized);
+  font-size: var(--font-size\/small);
+  font-weight: 400;
+  line-height: 18px;
+  flex-shrink: 0;
+}
+
 .menu-item__subtitle {
   font-size: var(--font-size\/small);
   color: var(--text\/color\/deemphasized);

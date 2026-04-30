@@ -38,8 +38,12 @@
 .account-panel[data-variant="b"][data-active-state="signed-in-sync-off"]    > [data-variant="b"][data-menu-state="signed-in-sync-off"],
 .account-panel[data-variant="b"][data-active-state="signed-in"]             > [data-variant="b"][data-menu-state="signed-in"],
 .account-panel[data-variant="b"][data-active-state="connected-devices"]     > [data-variant="b"][data-menu-state="connected-devices"],
-/* Variant C is a single layout shown for any active state. */
-.account-panel[data-variant="c"]                                            > [data-variant="c"][data-menu-state="signed-in"] {
+/* Variant C reuses Variant B's section markup; the avatar treatment and
+   subtitle copy are overridden via body[data-variant="c"] CSS rules. */
+.account-panel[data-variant="c"][data-active-state="signed-out"]            > [data-variant="b"][data-menu-state="signed-out"],
+.account-panel[data-variant="c"][data-active-state="signed-in-sync-off"]    > [data-variant="b"][data-menu-state="signed-in-sync-off"],
+.account-panel[data-variant="c"][data-active-state="signed-in"]             > [data-variant="b"][data-menu-state="signed-in"],
+.account-panel[data-variant="c"][data-active-state="connected-devices"]     > [data-variant="b"][data-menu-state="connected-devices"] {
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -65,12 +69,16 @@
 }
 
 .sub-panel[data-variant="a"][data-active-state="device-detail"] > [data-variant="a"][data-sub-state="device-detail"],
+.sub-panel[data-variant="a"][data-active-state="profiles"]      > [data-variant="a"][data-sub-state="profiles"],
 .sub-panel[data-variant="b"][data-active-state="device-detail"] > [data-variant="b"][data-sub-state="device-detail"],
 .sub-panel[data-variant="b"][data-active-state="profiles"]      > [data-variant="b"][data-sub-state="profiles"],
 .sub-panel[data-variant="b"][data-active-state="devices-list"]  > [data-variant="b"][data-sub-state="devices-list"],
-/* Variant C reuses variant B's sub-panel content for both flyouts. */
+.sub-panel[data-variant="b"][data-active-state="sync-actions"]  > [data-variant="b"][data-sub-state="sync-actions"],
+/* Variant C reuses Variant B's sub-panel content. */
 .sub-panel[data-variant="c"][data-active-state="device-detail"] > [data-variant="b"][data-sub-state="device-detail"],
-.sub-panel[data-variant="c"][data-active-state="profiles"]      > [data-variant="b"][data-sub-state="profiles"] {
+.sub-panel[data-variant="c"][data-active-state="profiles"]      > [data-variant="b"][data-sub-state="profiles"],
+.sub-panel[data-variant="c"][data-active-state="devices-list"]  > [data-variant="b"][data-sub-state="devices-list"],
+.sub-panel[data-variant="c"][data-active-state="sync-actions"]  > [data-variant="b"][data-sub-state="sync-actions"] {
   display: flex;
   flex-direction: column;
   align-items: stretch;

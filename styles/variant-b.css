@@ -21,16 +21,22 @@
   display: none;
 }
 
-body[data-profiles-mode="single"] .menu-item--profiles [data-if-profiles="single"] {
+body[data-profiles-mode="single"]:not([data-variant="c"]) .menu-item--profiles [data-if-profiles="single"] {
   display: block;
 }
 
-body[data-profiles-mode="many"] .menu-item--profiles [data-if-profiles="many"] {
+body[data-profiles-mode="many"]:not([data-variant="c"]) .menu-item--profiles [data-if-profiles="many"] {
   display: block;
 }
 
 /* The chevron span is inside a flex row — use inline-flex when visible. */
-body[data-profiles-mode="many"] .menu-item--profiles .menu-item__chevron[data-if-profiles="many"] {
+body[data-profiles-mode="many"]:not([data-variant="c"]) .menu-item--profiles .menu-item__chevron[data-if-profiles="many"] {
+  display: inline-flex;
+}
+
+/* Variant C uses its own "Your Profiles" title + always-visible chevron,
+   independent of profiles-mode. */
+body[data-variant="c"] .menu-item--profiles .menu-item__chevron[data-if-variant="c"] {
   display: inline-flex;
 }
 
@@ -53,6 +59,24 @@ body[data-sync-history="turned-off"] [data-if-sync-history="turned-off"] {
 
 .menu-item__subtitle--critical {
   color: var(--text\/color\/error);
+}
+
+/* Generic right-aligned hover hint for menu-items (e.g. "Switch profile"
+   on a non-current profile row, "View open tabs" on a synced device row).
+   Hidden by default, fades in on hover/focus. */
+.menu-item__hint {
+  margin-left: auto;
+  font-size: var(--font-size\/small);
+  color: var(--text\/color\/deemphasized);
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 80ms ease;
+  pointer-events: none;
+}
+
+.menu-item:hover .menu-item__hint,
+.menu-item:focus-visible .menu-item__hint {
+  opacity: 1;
 }
 
 /* -------- Sync status microinteraction (variant B, sync ON) --------

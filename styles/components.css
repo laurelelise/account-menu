@@ -200,6 +200,51 @@
   flex-shrink: 0;
 }
 
+/* Variant A profile detail — section becomes the positioning context for
+   the purple banner so it can extend up to the panel's outer top edge,
+   above the panel-header. Figma 402:63539. */
+.panel__slot[data-variant="a"][data-sub-state="profiles"] {
+  position: relative;
+}
+
+.profile-hero__banner {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  height: 104px;
+  background: var(--background\/color\/box\/accent\/primary);
+  border-bottom: 1px solid rgba(21, 20, 26, 0.1);
+  z-index: -1;
+}
+
+.profile-hero {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.profile-hero__avatar {
+  width: 82px;
+  height: 82px;
+  border-radius: 9999px;
+  background: var(--background\/color\/canvas);
+  border: 4px solid var(--background\/color\/box);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.profile-hero__avatar > img {
+  width: 45px;
+  height: 45px;
+  display: block;
+  /* Render the heart icon black instead of its native purple, scoped
+     to this large hero context only. */
+  filter: brightness(0);
+}
+
 /* Panel / Divider — 1px line with 4px block padding, 8px inline padding.
    components.md §3.2 + Figma 3:2941: px-8, py-4 around h-px line. */
 .panel-divider {
@@ -314,14 +359,66 @@
   width: 32px;
   height: 32px;
   flex-shrink: 0;
-  border-radius: 9999px;
-  overflow: clip;
+  position: relative;
 }
 
 .menu-item__avatar > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 9999px;
+}
+
+/* Profile-icon overlay on the avatar (Variant C only). Sits at the
+   avatar's bottom-right corner, hanging slightly outside the circle. */
+.menu-item__avatar-overlay {
+  display: none;
+  position: absolute;
+  bottom: -1px;
+  right: -6px;
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background: var(--background\/color\/information);
+  align-items: center;
+  justify-content: center;
+}
+
+body[data-variant="c"] .menu-item__avatar-overlay {
+  display: flex;
+}
+
+/* Variant C: avatar header gets a wider gap between the avatar group
+   and the user info labels. */
+body[data-variant="c"] .menu-item[data-action="manage-account"] {
+  gap: 12px;
+}
+
+.menu-item__avatar-overlay > img {
+  width: 8px;
+  height: 8px;
+  display: block;
+}
+
+/* Variant-conditional subtitle text (e.g. "Manage Account" → "Original
+   Profile" in Variant C). Mirrors the data-if-profiles pattern. */
+[data-if-variant="c"] {
+  display: none;
+}
+
+body[data-variant="c"] [data-if-variant="default"] {
+  display: none;
+}
+
+body[data-variant="c"] [data-if-variant="c"] {
+  display: block;
+}
+
+/* Bump specificity so the chevron's own .menu-item__chevron base rule
+   (declared later in this file with display: inline-flex) doesn't override
+   the data-if-variant hide. */
+.menu-item__chevron[data-if-variant="c"] {
+  display: none;
 }
 
 /* Label container — two-line stack (title + deemphasized subtitle) */

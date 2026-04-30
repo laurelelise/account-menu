@@ -641,6 +641,27 @@ const ACTIONS = {
   "back-to-devices": () => {
     setAccountState("connected-devices");
   },
+  /* Generic back/close button used inside flyouts that don't change the
+     main panel's state — just hides the sub-panel. */
+  "close-sub-panel": () => {
+    hideSubPanel();
+  },
+  /* Variant B "Sync is On" row: opens a flyout with Sync now + Manage sync.
+     Toggles like the other Variant B sub-panels. */
+  "open-sync-actions": (target) => {
+    if (subPanelTrigger === target && !subPanel.hidden) {
+      hideSubPanel();
+      return;
+    }
+    showSubPanel(target, "sync-actions");
+  },
+  /* Sync now: keep the main menu open and just close the sync-actions
+     flyout. Re-trigger the sync icon spin + "Updated just now" subtitle
+     so the participant gets visual feedback the sync ran. */
+  "sync-now": () => {
+    hideSubPanel();
+    runSyncStatusCheck();
+  },
   "open-account": () => {
     closePanels({ silent: true });
     openPanel("account");
@@ -785,11 +806,35 @@ function setVariant(v, { updateURL = true } = {}) {
   // The synced-tabs sidebar icon is variant-B-only, so any variant change
   // needs to re-evaluate whether it should be visible.
   syncDevicesAdded();
+  // Variant C reuses Variant B's section markup but wants Profiles above
+  // Sync. Reorder DOM directly — CSS `order` can't cleanly swap just two
+  // siblings without numbering everything in between.
+  applyProfilesAboveSync(variant === "c");
   if (updateURL) {
     const url = new URL(window.location.href);
     url.searchParams.set("variant", variant);
     window.history.replaceState(null, "", url);
   }
+}
+
+function applyProfilesAboveSync(profilesFirst) {
+  const sections = accountPanel.querySelectorAll(
+    '.panel__slot[data-variant="b"][data-menu-state]'
+  );
+  sections.forEach((section) => {
+    const sync = section.querySelector(
+      '[data-action="open-sync-actions"], [data-action="enable-sync"]'
+    );
+    const profiles = section.querySelector(".menu-item--profiles");
+    if (!sync || !profiles) return;
+    const syncIdx = Array.prototype.indexOf.call(section.children, sync);
+    const profilesIdx = Array.prototype.indexOf.call(section.children, profiles);
+    if (profilesFirst && profilesIdx > syncIdx) {
+      sync.before(profiles);
+    } else if (!profilesFirst && syncIdx > profilesIdx) {
+      profiles.before(sync);
+    }
+  });
 }
 
 setVariant(getVariantFromURL(), { updateURL: true });

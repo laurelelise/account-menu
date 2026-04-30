@@ -368,7 +368,7 @@
         <!-- Profile rows shown after Create a New Profile is confirmed
              (body[data-profiles-mode="many"]). Visible regardless of sign-in. -->
         <div class="profiles-after-create">
-          <button class="menu-item" type="button">
+          <button class="menu-item" type="button" data-action="open-profiles">
             <span class="menu-item__profile-icon">
               <img src="assets/icons/profile-heart-16.svg" alt="" />
             </span>
@@ -465,10 +465,14 @@
         <button class="menu-item" type="button" data-action="manage-account">
           <span class="menu-item__avatar">
             <img src="assets/avatars/Ellipse%202.png" alt="" />
+            <span class="menu-item__avatar-overlay" aria-hidden="true">
+              <img src="assets/icons/profile-heart-16.svg" alt="" />
+            </span>
           </span>
           <span class="menu-item__labels">
             <span class="menu-item__title menu-item__title--semibold">sam@gmail.com</span>
-            <span class="menu-item__subtitle">Manage Account</span>
+            <span class="menu-item__subtitle" data-if-variant="default">Manage Account</span>
+            <span class="menu-item__subtitle" data-if-variant="c">Original Profile</span>
           </span>
         </button>
 
@@ -477,7 +481,7 @@
         <div class="profiles-after-create">
           <div class="menu-subheader">Profiles</div>
 
-          <button class="menu-item" type="button">
+          <button class="menu-item" type="button" data-action="open-profiles">
             <span class="menu-item__profile-icon">
               <img src="assets/icons/profile-heart-16.svg" alt="" />
             </span>
@@ -583,10 +587,14 @@
         <button class="menu-item" type="button" data-action="manage-account">
           <span class="menu-item__avatar">
             <img src="assets/avatars/Ellipse%202.png" alt="" />
+            <span class="menu-item__avatar-overlay" aria-hidden="true">
+              <img src="assets/icons/profile-heart-16.svg" alt="" />
+            </span>
           </span>
           <span class="menu-item__labels">
             <span class="menu-item__title menu-item__title--semibold">sam@gmail.com</span>
-            <span class="menu-item__subtitle">Manage Account</span>
+            <span class="menu-item__subtitle" data-if-variant="default">Manage Account</span>
+            <span class="menu-item__subtitle" data-if-variant="c">Original Profile</span>
           </span>
         </button>
 
@@ -595,7 +603,7 @@
         <div class="profiles-after-create">
           <div class="menu-subheader">Profiles</div>
 
-          <button class="menu-item" type="button">
+          <button class="menu-item" type="button" data-action="open-profiles">
             <span class="menu-item__profile-icon">
               <img src="assets/icons/profile-heart-16.svg" alt="" />
             </span>
@@ -692,10 +700,14 @@
         <button class="menu-item" type="button" data-action="manage-account">
           <span class="menu-item__avatar">
             <img src="assets/avatars/Ellipse%202.png" alt="" />
+            <span class="menu-item__avatar-overlay" aria-hidden="true">
+              <img src="assets/icons/profile-heart-16.svg" alt="" />
+            </span>
           </span>
           <span class="menu-item__labels">
             <span class="menu-item__title menu-item__title--semibold">sam@gmail.com</span>
-            <span class="menu-item__subtitle">Manage Account</span>
+            <span class="menu-item__subtitle" data-if-variant="default">Manage Account</span>
+            <span class="menu-item__subtitle" data-if-variant="c">Original Profile</span>
           </span>
         </button>
 
@@ -704,7 +716,7 @@
         <div class="profiles-after-create">
           <div class="menu-subheader">Profiles</div>
 
-          <button class="menu-item" type="button">
+          <button class="menu-item" type="button" data-action="open-profiles">
             <span class="menu-item__profile-icon">
               <img src="assets/icons/profile-heart-16.svg" alt="" />
             </span>
@@ -838,8 +850,10 @@
           <span class="menu-item__labels">
             <span class="menu-item__title" data-if-profiles="single">Add a Profile</span>
             <span class="menu-item__title" data-if-profiles="many">Profiles</span>
+            <span class="menu-item__title" data-if-variant="c">Your Profiles</span>
           </span>
           <span class="menu-item__chevron" data-if-profiles="many"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+          <span class="menu-item__chevron" data-if-variant="c"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
         </button>
 
         <button class="menu-item" type="button" data-action="add-device">
@@ -881,10 +895,14 @@
         <button class="menu-item" type="button" data-action="manage-account">
           <span class="menu-item__avatar">
             <img src="assets/avatars/Ellipse%202.png" alt="" />
+            <span class="menu-item__avatar-overlay" aria-hidden="true">
+              <img src="assets/icons/profile-heart-16.svg" alt="" />
+            </span>
           </span>
           <span class="menu-item__labels">
             <span class="menu-item__title menu-item__title--semibold">sam@gmail.com</span>
-            <span class="menu-item__subtitle">Manage Account</span>
+            <span class="menu-item__subtitle" data-if-variant="default">Manage Account</span>
+            <span class="menu-item__subtitle" data-if-variant="c">Original Profile</span>
           </span>
         </button>
 
@@ -910,8 +928,10 @@
           <span class="menu-item__labels">
             <span class="menu-item__title" data-if-profiles="single">Add a Profile</span>
             <span class="menu-item__title" data-if-profiles="many">Profiles</span>
+            <span class="menu-item__title" data-if-variant="c">Your Profiles</span>
           </span>
           <span class="menu-item__chevron" data-if-profiles="many"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+          <span class="menu-item__chevron" data-if-variant="c"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
         </button>
 
         <button class="menu-item" type="button" data-action="add-device">
@@ -961,21 +981,26 @@
         <button class="menu-item" type="button" data-action="manage-account">
           <span class="menu-item__avatar">
             <img src="assets/avatars/Ellipse%202.png" alt="" />
+            <span class="menu-item__avatar-overlay" aria-hidden="true">
+              <img src="assets/icons/profile-heart-16.svg" alt="" />
+            </span>
           </span>
           <span class="menu-item__labels">
             <span class="menu-item__title menu-item__title--semibold">sam@gmail.com</span>
-            <span class="menu-item__subtitle">Manage Account</span>
+            <span class="menu-item__subtitle" data-if-variant="default">Manage Account</span>
+            <span class="menu-item__subtitle" data-if-variant="c">Original Profile</span>
           </span>
         </button>
 
         <div class="panel-divider"></div>
 
-        <button class="menu-item" type="button" data-sync-status="on" data-action="manage-sync">
+        <button class="menu-item" type="button" data-sync-status="on" data-action="open-sync-actions">
           <span class="menu-item__icon"><img src="assets/icons/sync-16.svg" alt="" /></span>
           <span class="menu-item__labels">
             <span class="menu-item__title">Sync is On</span>
             <span class="menu-item__subtitle">Last synced 5 minutes ago</span>
           </span>
+          <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
         </button>
 
         <button class="menu-item menu-item--profiles" type="button" data-action="open-profiles">
@@ -983,8 +1008,10 @@
           <span class="menu-item__labels">
             <span class="menu-item__title" data-if-profiles="single">Add a Profile</span>
             <span class="menu-item__title" data-if-profiles="many">Profiles</span>
+            <span class="menu-item__title" data-if-variant="c">Your Profiles</span>
           </span>
           <span class="menu-item__chevron" data-if-profiles="many"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+          <span class="menu-item__chevron" data-if-variant="c"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
         </button>
 
         <button class="menu-item" type="button" data-action="add-device">
@@ -1034,21 +1061,26 @@
         <button class="menu-item" type="button" data-action="manage-account">
           <span class="menu-item__avatar">
             <img src="assets/avatars/Ellipse%202.png" alt="" />
+            <span class="menu-item__avatar-overlay" aria-hidden="true">
+              <img src="assets/icons/profile-heart-16.svg" alt="" />
+            </span>
           </span>
           <span class="menu-item__labels">
             <span class="menu-item__title menu-item__title--semibold">sam@gmail.com</span>
-            <span class="menu-item__subtitle">Manage Account</span>
+            <span class="menu-item__subtitle" data-if-variant="default">Manage Account</span>
+            <span class="menu-item__subtitle" data-if-variant="c">Original Profile</span>
           </span>
         </button>
 
         <div class="panel-divider"></div>
 
-        <button class="menu-item" type="button" data-sync-status="on" data-action="manage-sync">
+        <button class="menu-item" type="button" data-sync-status="on" data-action="open-sync-actions">
           <span class="menu-item__icon"><img src="assets/icons/sync-16.svg" alt="" /></span>
           <span class="menu-item__labels">
             <span class="menu-item__title">Sync is On</span>
             <span class="menu-item__subtitle">Last synced 5 minutes ago</span>
           </span>
+          <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
         </button>
 
         <button class="menu-item menu-item--profiles" type="button" data-action="open-profiles">
@@ -1056,8 +1088,10 @@
           <span class="menu-item__labels">
             <span class="menu-item__title" data-if-profiles="single">Add a Profile</span>
             <span class="menu-item__title" data-if-profiles="many">Profiles</span>
+            <span class="menu-item__title" data-if-variant="c">Your Profiles</span>
           </span>
           <span class="menu-item__chevron" data-if-profiles="many"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+          <span class="menu-item__chevron" data-if-variant="c"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
         </button>
 
         <button class="menu-item" type="button" data-action="open-devices-list">
@@ -1103,100 +1137,9 @@
         </button>
       </section>
 
-      <!-- ============================================================
-           VARIANT C — restructured menu with section subheaders.
-           Single signed-in layout shown for all states under variant C.
-           ============================================================ -->
-      <section class="panel__slot" data-variant="c" data-menu-state="signed-in" aria-label="Account">
-        <div class="menu-subheader">Your data</div>
-
-        <button class="menu-item" type="button" data-action="open-profiles">
-          <span class="menu-item__icon"><img src="assets/icons/users-16.svg" alt="" /></span>
-          <span class="menu-item__labels">
-            <span class="menu-item__title">Profiles</span>
-          </span>
-          <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
-        </button>
-
-        <button class="menu-item" type="button">
-          <span class="menu-item__icon"><img src="assets/icons/passkey-16.svg" alt="" /></span>
-          <span class="menu-item__labels">
-            <span class="menu-item__title">Passwords &amp; Autofill</span>
-          </span>
-        </button>
-
-        <div class="panel-divider"></div>
-        <div class="menu-subheader">Sync</div>
-
-        <button class="menu-item" type="button">
-          <span class="menu-item__icon"><img src="assets/icons/sync-16.svg" alt="" /></span>
-          <span class="menu-item__labels">
-            <span class="menu-item__title">Sync is on</span>
-          </span>
-        </button>
-
-        <div class="panel-divider"></div>
-        <div class="menu-subheader">Send tab to</div>
-
-        <button class="menu-item" type="button" data-action="open-device">
-          <span class="menu-item__icon"><img src="assets/icons/device-mobile-16.svg" alt="" /></span>
-          <span class="menu-item__labels">
-            <span class="menu-item__title">Sam’s iPhone</span>
-          </span>
-          <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
-        </button>
-
-        <button class="menu-item" type="button" data-action="open-device">
-          <span class="menu-item__icon"><img src="assets/icons/device-mobile-16.svg" alt="" /></span>
-          <span class="menu-item__labels">
-            <span class="menu-item__title">Sam’s iPad</span>
-          </span>
-          <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
-        </button>
-
-        <div class="panel-divider"></div>
-        <div class="menu-subheader">Devices</div>
-
-        <button class="menu-item" type="button">
-          <span class="menu-item__icon"><img src="assets/icons/settings-16.svg" alt="" /></span>
-          <span class="menu-item__labels">
-            <span class="menu-item__title">Manage devices</span>
-          </span>
-        </button>
-
-        <div class="panel-divider"></div>
-        <div class="menu-subheader">Services</div>
-
-        <button class="menu-item" type="button">
-          <span class="menu-item__icon"><img src="assets/icons/logo-monitor-16.svg" alt="" /></span>
-          <span class="menu-item__labels">
-            <span class="menu-item__title">Monitor</span>
-          </span>
-        </button>
-
-        <button class="menu-item" type="button">
-          <span class="menu-item__icon"><img src="assets/icons/logo-relay-16.svg" alt="" /></span>
-          <span class="menu-item__labels">
-            <span class="menu-item__title">Relay</span>
-          </span>
-        </button>
-
-        <button class="menu-item" type="button">
-          <span class="menu-item__icon"><img src="assets/icons/logo-vpn-16.svg" alt="" /></span>
-          <span class="menu-item__labels">
-            <span class="menu-item__title">VPN</span>
-          </span>
-        </button>
-
-        <div class="panel-divider"></div>
-        <div class="menu-subheader">Footer</div>
-
-        <button class="menu-item" type="button">
-          <span class="menu-item__labels">
-            <span class="menu-item__title">Sign out</span>
-          </span>
-        </button>
-      </section>
+      <!-- Variant C reuses Variant B's section markup (mapped via CSS in
+           account-menu.css) and overrides only the avatar treatment +
+           subtitle text via body[data-variant="c"] rules. -->
 
     </div>
 
@@ -1253,6 +1196,51 @@
         </button>
       </section>
 
+      <!-- Variant A / Profile detail — Figma 402:63539 -->
+      <section class="panel__slot" data-variant="a" data-sub-state="profiles" aria-label="Original Profile">
+        <div class="profile-hero__banner" aria-hidden="true"></div>
+
+        <div class="panel-header">
+          <button class="icon-button" type="button" data-action="close-sub-panel" aria-label="Back">
+            <img src="assets/icons/back-16.svg" alt="" />
+          </button>
+          <p class="panel-header__title">Original Profile</p>
+          <div class="panel-header__slot" aria-hidden="true"></div>
+        </div>
+
+        <div class="profile-hero">
+          <div class="profile-hero__avatar">
+            <img src="assets/icons/profile-heart-16.svg" alt="" />
+          </div>
+        </div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Edit This Profile</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Copy This Profile</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Manage Profiles</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button" data-action="create-profile">
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Create a New Profile</span>
+          </span>
+        </button>
+      </section>
+
       <!-- Variant B — Figma 148:54390 -->
       <section class="panel__slot" data-variant="b" data-sub-state="device-detail" aria-label="Sam’s iPhone 16">
         <div class="panel-header">
@@ -1295,7 +1283,8 @@
       <section class="panel__slot" data-variant="b" data-sub-state="profiles" aria-label="Profiles">
         <div class="panel-header">
           <div class="panel-header__slot" aria-hidden="true"></div>
-          <p class="panel-header__title">Profiles</p>
+          <p class="panel-header__title" data-if-variant="default">Profiles</p>
+          <p class="panel-header__title" data-if-variant="c">Your Profiles</p>
           <div class="panel-header__slot" aria-hidden="true"></div>
         </div>
 
@@ -1320,6 +1309,7 @@
           <span class="menu-item__labels">
             <span class="menu-item__title">Work</span>
           </span>
+          <span class="menu-item__hint">Switch profile</span>
         </button>
 
         <div class="panel-divider"></div>
@@ -1368,6 +1358,7 @@
           <span class="menu-item__labels">
             <span class="menu-item__title">Sam’s iPhone 16</span>
           </span>
+          <span class="menu-item__hint">View tabs</span>
         </button>
 
         <button class="menu-item" type="button" data-action="open-synced-tabs">
@@ -1375,6 +1366,7 @@
           <span class="menu-item__labels">
             <span class="menu-item__title">Sam’s iPad</span>
           </span>
+          <span class="menu-item__hint">View tabs</span>
         </button>
 
         <div class="panel-divider"></div>
@@ -1390,6 +1382,31 @@
           <span class="menu-item__icon"><img src="assets/icons/settings-16.svg" alt="" /></span>
           <span class="menu-item__labels">
             <span class="menu-item__title">Manage device settings</span>
+          </span>
+        </button>
+      </section>
+
+      <!-- Variant B / Account sync flyout (sync ON) — Figma 396:63392 -->
+      <section class="panel__slot" data-variant="b" data-sub-state="sync-actions" aria-label="Account sync">
+        <div class="panel-header">
+          <div class="panel-header__slot" aria-hidden="true"></div>
+          <p class="panel-header__title">Account sync</p>
+          <div class="panel-header__slot" aria-hidden="true"></div>
+        </div>
+
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button" data-action="sync-now">
+          <span class="menu-item__icon"><img src="assets/icons/sync-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Sync now</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button" data-action="manage-sync">
+          <span class="menu-item__icon"><img src="assets/icons/settings-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Manage sync settings</span>
           </span>
         </button>
       </section>
@@ -1480,7 +1497,7 @@
         <button class="dev-switcher__btn is-active" data-variant="a" type="button">A</button>
         <button class="dev-switcher__btn" data-variant="b" type="button">B</button>
         <!-- Variant C hidden from the switcher; still accessible via ?variant=c URL. -->
-        <button class="dev-switcher__btn" data-variant="c" type="button" hidden>C</button>
+        <button class="dev-switcher__btn" data-variant="c" type="button">C</button>
       </div>
       <button class="dev-switcher__hide" id="dev-switcher-hide" type="button" aria-label="Hide switcher">×</button>
     </div>

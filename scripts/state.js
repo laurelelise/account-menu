@@ -51,6 +51,12 @@ function setAccountState(next) {
     next === "signed-out" ? "signed-out" : "signed-in";
   // Sub-panel is only opened by explicit clicks on a device row, never auto.
   if (next !== "devices-added") hideSubPanel();
+  // The "Sync is off / Last sync 2w ago" copy is only shown when the user
+  // explicitly turned sync off. Any transition out of signed-in-sync-off
+  // resets the flag so a future sign-in lands on the fresh prompt.
+  if (next !== "signed-in-sync-off") {
+    delete document.body.dataset.syncHistory;
+  }
   // Sync the devices-added body attribute (drives the chrome's synced-tabs
   // sidebar icon visibility). Auto-close the sidebar panel when leaving
   // connected-devices so participants never see a panel for a state they
@@ -434,6 +440,10 @@ const ACTIONS = {
       secondary: {
         label: "Turn off sync",
         onClick: () => {
+          // Mark this as an explicit turn-off so the sync-off section
+          // shows the "Sync is off / Last sync 2w ago" copy instead of
+          // the fresh-sign-in prompt.
+          document.body.dataset.syncHistory = "turned-off";
           openPanel("account");
           setAccountState("signed-in-sync-off");
         },
@@ -714,6 +724,29 @@ window.addEventListener("resize", () => {
     positionPanel(appMenuPanel, hamburgerButton);
   }
 });
+
+// Keep an open menu glued to its trigger button as the page scrolls — the
+// menu uses position:fixed and is placed once on open, so without this it
+// would drift away from the avatar on short viewports. rAF-coalesced so we
+// re-position at most once per frame.
+let scrollRaf = 0;
+window.addEventListener(
+  "scroll",
+  () => {
+    if (state.openMenu === "none") return;
+    if (scrollRaf) return;
+    scrollRaf = requestAnimationFrame(() => {
+      scrollRaf = 0;
+      if (state.openMenu === "account") {
+        positionPanel(accountPanel, accountButton);
+        positionSubPanel();
+      } else if (state.openMenu === "hamburger") {
+        positionPanel(appMenuPanel, hamburgerButton);
+      }
+    });
+  },
+  { passive: true }
+);
 
 window.addEventListener("hashchange", () => {
   const fromHash = readStateFromHash();

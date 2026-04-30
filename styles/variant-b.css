@@ -34,6 +34,27 @@ body[data-profiles-mode="many"] .menu-item--profiles .menu-item__chevron[data-if
   display: inline-flex;
 }
 
+/* -------- Sync row, sync OFF state --------
+   Two variants of the row live in the markup; only one renders.
+   - default: "Sync your Data" prompt (fresh sign-in, never enabled sync)
+   - turned-off: "Sync is off" + red "Last sync 2w ago" (user explicitly
+     turned sync off via the modal) */
+[data-if-sync-history="turned-off"] {
+  display: none;
+}
+
+body[data-sync-history="turned-off"] [data-if-sync-history="default"] {
+  display: none;
+}
+
+body[data-sync-history="turned-off"] [data-if-sync-history="turned-off"] {
+  display: flex;
+}
+
+.menu-item__subtitle--critical {
+  color: var(--text\/color\/error);
+}
+
 /* -------- Sync status microinteraction (variant B, sync ON) --------
    On menu open, the sync icon does a single brief rotation as a visual
    "check" / confirmation, then the subtitle crossfades to "Updated just now".

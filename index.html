@@ -890,10 +890,18 @@
 
         <div class="panel-divider"></div>
 
-        <button class="menu-item" type="button" data-action="enable-sync">
+        <button class="menu-item" type="button" data-action="enable-sync" data-if-sync-history="default">
           <span class="menu-item__icon"><img src="assets/icons/sync-16.svg" alt="" /></span>
           <span class="menu-item__labels">
             <span class="menu-item__title">Sync your Data</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button" data-action="enable-sync" data-if-sync-history="turned-off">
+          <span class="menu-item__icon"><img src="assets/icons/sync-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Sync is off</span>
+            <span class="menu-item__subtitle menu-item__subtitle--critical">Last sync 2w ago</span>
           </span>
         </button>
 

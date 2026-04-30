@@ -394,6 +394,13 @@ body[data-variant="c"] .menu-item[data-action="manage-account"] {
   gap: 12px;
 }
 
+/* Variant C: hide the Sign out row (and the divider above it so we
+   don't leave an orphan separator at the bottom). */
+body[data-variant="c"] .menu-item[data-action="signout"],
+body[data-variant="c"] .panel-divider:has(+ .menu-item[data-action="signout"]) {
+  display: none;
+}
+
 .menu-item__avatar-overlay > img {
   width: 8px;
   height: 8px;

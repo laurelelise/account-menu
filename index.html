@@ -1159,27 +1159,41 @@
            with chevron. No Sign out row.
            ============================================================ -->
 
-      <!-- Variant D / Signed out (cache sign out) — Figma 16210:25369.
-           Single signed-out treatment: avatar header with red "You're
-           signed out", Profiles (when many), Sync is off / Sign in to
-           sync, Privacy tools. -->
-      <section class="panel__slot panel__slot--variant-d" data-variant="d" data-menu-state="signed-out" aria-label="Signed out">
-        <button class="menu-item menu-item--header-row" type="button" data-action="signin">
-          <span class="menu-item__avatar menu-item__avatar--signed-out" aria-hidden="true">
-            <img src="assets/icons/account-16.svg" alt="" />
+      <!-- Variant D / Signed out (fresh) — Figma 16398:25833.
+           Compact purple promo banner with mascot + Sign in button at
+           the top, then Create a New Profile, Secure Sync, Get Firefox
+           on Mobile, descriptive Privacy tools. Shown by default; once
+           a participant has signed in once, the cache sign-out section
+           below replaces it. -->
+      <section class="panel__slot panel__slot--variant-d" data-variant="d" data-menu-state="signed-out" data-if-account-history="default" aria-label="Signed out (fresh)">
+        <div class="panel-promo">
+          <span class="panel-promo__logo" aria-hidden="true">
+            <img src="assets/logo/expressive-firefox.svg" alt="" />
           </span>
-          <span class="menu-item__labels">
-            <span class="menu-item__title menu-item__title--semibold">sam@gmail.com</span>
-            <span class="menu-item__subtitle menu-item__subtitle--critical">You’re signed out</span>
+          <span class="panel-promo__labels">
+            <span class="panel-promo__title">Sign in to sync</span>
+            <span class="panel-promo__subtitle">Get your data everywhere</span>
           </span>
-          <span class="menu-item__inline-button menu-item__inline-button--primary" aria-hidden="true">Sign in</span>
-        </button>
+          <button class="moz-button moz-button--primary" type="button" data-action="signin">Sign in</button>
+        </div>
 
+        <div class="panel-spacer"></div>
         <div class="panel-divider"></div>
 
-        <div class="profiles-after-create" data-if-profiles="many">
-          <div class="menu-subheader menu-subheader--soft">Profiles</div>
+        <div class="menu-subheader menu-subheader--soft">Profiles</div>
 
+        <!-- Single-profile mode: prompt to create the first profile. -->
+        <button class="menu-item" type="button" data-action="open-create-profile" data-if-profiles="single">
+          <span class="menu-item__icon"><img src="assets/icons/users-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Create a New Profile</span>
+          </span>
+          <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+        </button>
+
+        <!-- Many-profile mode: profiles can be created without signing in,
+             so once they exist surface them here too. -->
+        <div class="profiles-after-create" data-if-profiles="many">
           <button class="menu-item menu-item--selected" type="button" data-action="open-profiles">
             <span class="profile-icon-pill profile-icon-pill--info">
               <img src="assets/icons/profile-heart-16.svg" alt="" />
@@ -1198,13 +1212,111 @@
               <span class="menu-item__title">Work</span>
             </span>
           </button>
-
-          <div class="panel-divider"></div>
         </div>
+
+        <div class="panel-divider"></div>
+
+        <div class="menu-subheader menu-subheader--soft">Secure Sync</div>
+
+        <button class="menu-item" type="button" data-action="secure-sync">
+          <span class="menu-item__icon"><img src="assets/icons/sync-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Sync your data</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/device-mobile-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Get Firefox on Mobile</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <div class="menu-subheader menu-subheader--soft">Privacy Tools</div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-monitor-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Data Breach Alerts</span>
+            <span class="menu-item__subtitle">Get data breach alerts</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-relay-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Email Masks</span>
+            <span class="menu-item__subtitle">Defend your inbox from spam</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-vpn-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Free VPN</span>
+            <span class="menu-item__subtitle">Protect 50GB of your browsing free</span>
+          </span>
+        </button>
+      </section>
+
+      <!-- Variant D / Signed out (cache sign out) — Figma 16210:25369.
+           Avatar header with red "You're signed out", Profiles (when
+           many), Sync is off / Sign in to sync, Privacy tools. Shown
+           after the participant has signed in at least once. -->
+      <section class="panel__slot panel__slot--variant-d" data-variant="d" data-menu-state="signed-out" data-if-account-history="seen-signin" aria-label="Signed out">
+        <button class="menu-item menu-item--header-row" type="button" data-action="signin">
+          <span class="menu-item__avatar menu-item__avatar--signed-out" aria-hidden="true">
+            <img src="assets/icons/account-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title menu-item__title--semibold">sam@gmail.com</span>
+            <span class="menu-item__subtitle menu-item__subtitle--critical">You’re signed out</span>
+          </span>
+          <span class="menu-item__inline-button menu-item__inline-button--primary" aria-hidden="true">Sign in</span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <div class="menu-subheader menu-subheader--soft">Profiles</div>
+
+        <!-- Single mode: prompt to create. -->
+        <button class="menu-item" type="button" data-action="open-create-profile" data-if-profiles="single">
+          <span class="menu-item__icon"><img src="assets/icons/users-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Create a New Profile</span>
+          </span>
+          <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+        </button>
+
+        <!-- Many mode: profile list. -->
+        <div class="profiles-after-create" data-if-profiles="many">
+          <button class="menu-item menu-item--selected" type="button" data-action="open-profiles">
+            <span class="profile-icon-pill profile-icon-pill--info">
+              <img src="assets/icons/profile-heart-16.svg" alt="" />
+            </span>
+            <span class="menu-item__labels">
+              <span class="menu-item__title">Original Profile</span>
+            </span>
+            <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+          </button>
+
+          <button class="menu-item" type="button">
+            <span class="profile-icon-pill profile-icon-pill--success">
+              <img src="assets/icons/profile-makeup-16.svg" alt="" />
+            </span>
+            <span class="menu-item__labels">
+              <span class="menu-item__title">Work</span>
+            </span>
+          </button>
+        </div>
+
+        <div class="panel-divider"></div>
 
         <div class="menu-subheader menu-subheader--soft">Secure sync</div>
 
-        <button class="menu-item" type="button" data-action="signin">
+        <button class="menu-item" type="button" data-action="secure-sync">
           <span class="menu-item__icon"><img src="assets/icons/sync-16.svg" alt="" /></span>
           <span class="menu-item__labels">
             <span class="menu-item__title">Sync is off</span>
@@ -1244,8 +1356,8 @@
       <!-- Variant D / Signed in, sync OFF (turn-on prompt) — Figma 16075:26130 -->
       <section class="panel__slot panel__slot--variant-d" data-variant="d" data-menu-state="signed-in-sync-off" aria-label="Signed in, sync off">
         <button class="menu-item menu-item--header-row" type="button" data-action="manage-account">
-          <span class="menu-item__avatar menu-item__avatar--initial" aria-hidden="true">
-            <span class="menu-item__avatar-initial">S</span>
+          <span class="menu-item__avatar">
+            <img src="assets/avatars/Ellipse%202.png" alt="" />
           </span>
           <span class="menu-item__labels">
             <span class="menu-item__title menu-item__title--semibold">sam@gmail.com</span>
@@ -1255,8 +1367,19 @@
 
         <div class="panel-divider"></div>
 
-        <div class="menu-subheader menu-subheader--soft" data-if-profiles="many">Profiles</div>
+        <div class="menu-subheader menu-subheader--soft">Profiles</div>
 
+        <!-- Single mode: prompt to create. Profiles can be added without
+             signing in, so this stays available in every state. -->
+        <button class="menu-item" type="button" data-action="open-create-profile" data-if-profiles="single">
+          <span class="menu-item__icon"><img src="assets/icons/users-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Create a New Profile</span>
+          </span>
+          <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+        </button>
+
+        <!-- Many mode: profile list, including the active profile. -->
         <div class="profiles-after-create" data-if-profiles="many">
           <button class="menu-item menu-item--selected" type="button" data-action="open-profiles">
             <span class="profile-icon-pill profile-icon-pill--info">
@@ -1276,9 +1399,9 @@
               <span class="menu-item__title">Work</span>
             </span>
           </button>
-
-          <div class="panel-divider"></div>
         </div>
+
+        <div class="panel-divider"></div>
 
         <div class="menu-subheader menu-subheader--soft">Secure Sync</div>
 
@@ -1333,8 +1456,8 @@
            One section serves both signed-in and connected-devices states. -->
       <section class="panel__slot panel__slot--variant-d" data-variant="d" data-menu-state="connected-devices" aria-label="Signed in, sync on">
         <button class="menu-item menu-item--header-row" type="button" data-action="manage-account">
-          <span class="menu-item__avatar menu-item__avatar--initial" aria-hidden="true">
-            <span class="menu-item__avatar-initial">S</span>
+          <span class="menu-item__avatar">
+            <img src="assets/avatars/Ellipse%202.png" alt="" />
           </span>
           <span class="menu-item__labels">
             <span class="menu-item__title menu-item__title--semibold">sam@gmail.com</span>
@@ -1344,8 +1467,19 @@
 
         <div class="panel-divider"></div>
 
-        <div class="menu-subheader menu-subheader--soft" data-if-profiles="many">Profiles</div>
+        <div class="menu-subheader menu-subheader--soft">Profiles</div>
 
+        <!-- Single mode: prompt to create. Profiles can be added without
+             signing in, so this stays available in every state. -->
+        <button class="menu-item" type="button" data-action="open-create-profile" data-if-profiles="single">
+          <span class="menu-item__icon"><img src="assets/icons/users-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Create a New Profile</span>
+          </span>
+          <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+        </button>
+
+        <!-- Many mode: profile list, including the active profile. -->
         <div class="profiles-after-create" data-if-profiles="many">
           <button class="menu-item menu-item--selected" type="button" data-action="open-profiles">
             <span class="profile-icon-pill profile-icon-pill--info">
@@ -1365,9 +1499,9 @@
               <span class="menu-item__title">Work</span>
             </span>
           </button>
-
-          <div class="panel-divider"></div>
         </div>
+
+        <div class="panel-divider"></div>
 
         <div class="menu-subheader menu-subheader--soft">Secure Sync</div>
 

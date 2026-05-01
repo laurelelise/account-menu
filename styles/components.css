@@ -1006,15 +1006,49 @@ body[data-profiles-mode="many"]
   border-radius: 9999px;
   overflow: clip;
   display: inline-flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
 }
 
+/* Kit is sized larger than the circle and bottom-anchored so the head
+   sits center-up inside the avatar and the body extends flush with the
+   bottom edge — no white gap under the illustration. The extra width
+   that doesn't fit horizontally is clipped by the circle. */
 .panel-promo__logo > img,
 .panel-promo__logo > svg {
-  width: 22px;
-  height: 22px;
+  width: 27px;
+  height: 29px;
   display: block;
+  margin-bottom: -1px;
+}
+
+/* Kit peeks up into the avatar circle when Variant D's signed-out
+   menu opens. Slides up from below the clip line with a tiny overshoot
+   so he appears to settle into place. The avatar's overflow:clip keeps
+   the start position hidden. */
+@keyframes kit-pop {
+  0%   { transform: translateY(110%); }
+  70%  { transform: translateY(-6%); }
+  100% { transform: translateY(0); }
+}
+
+body[data-variant="d"] .panel-promo__logo.is-popping > img,
+body[data-variant="d"] .panel-promo__logo.is-popping > svg {
+  animation: kit-pop 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Variant D: Kit sits about 5% smaller in the avatar circle. */
+body[data-variant="d"] .panel-promo__logo > img,
+body[data-variant="d"] .panel-promo__logo > svg {
+  width: 26px;
+  height: 28px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-variant="d"] .panel-promo__logo.is-popping > img,
+  body[data-variant="d"] .panel-promo__logo.is-popping > svg {
+    animation: none;
+  }
 }
 
 .panel-promo__labels {

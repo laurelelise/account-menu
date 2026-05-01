@@ -198,6 +198,22 @@ function openPanel(which) {
   if (which === "account" && accountPanel.dataset.variant === "b") {
     runSyncStatusCheck();
   }
+  if (which === "account" && accountPanel.dataset.variant === "d") {
+    retriggerKitPop();
+  }
+}
+
+/* Re-runs the "Kit pops in" animation on Variant D's signed-out promo
+   each time the menu opens. Removes + re-adds the class with a forced
+   reflow so the animation restarts. */
+function retriggerKitPop() {
+  const logo = accountPanel.querySelector(
+    '[data-variant="d"][data-menu-state="signed-out"] .panel-promo__logo'
+  );
+  if (!logo) return;
+  logo.classList.remove("is-popping");
+  void logo.offsetWidth;
+  logo.classList.add("is-popping");
 }
 
 /* Retrigger the rotation animation on every visible Sync icon-button by
@@ -394,6 +410,10 @@ const ACTIONS = {
         "You’ll be taken to accounts.firefox.com to sign in or create a Mozilla account.",
       action: "Sign in",
       onConfirm: () => {
+        // Mark that the participant has been through sign-in at least once
+        // so the next visit to the signed-out state shows Variant D's cache
+        // sign-out treatment (avatar header) rather than the fresh promo.
+        document.body.dataset.accountHistory = "seen-signin";
         openPanel("account");
         setAccountState("signed-in-sync-off");
       },

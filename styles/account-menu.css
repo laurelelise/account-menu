@@ -30,6 +30,18 @@
   display: none;
 }
 
+/* Variant D's signed-out has two sections sharing data-menu-state="signed-out".
+   The body's data-account-history attribute selects which one is active —
+   "default" for fresh visitors (compact-promo design), "seen-signin" for
+   anyone who has signed in once (cache sign-out design). */
+body[data-variant="d"]:not([data-account-history="seen-signin"]) .account-panel > [data-if-account-history="seen-signin"] {
+  display: none !important;
+}
+
+body[data-variant="d"][data-account-history="seen-signin"] .account-panel > [data-if-account-history="default"] {
+  display: none !important;
+}
+
 
 .account-panel[data-variant="a"][data-active-state="signed-out"]            > [data-variant="a"][data-menu-state="signed-out"],
 .account-panel[data-variant="a"][data-active-state="signed-in-sync-off"]    > [data-variant="a"][data-menu-state="signed-in-sync-off"],
@@ -71,11 +83,14 @@
   display: none;
 }
 
-/* Variant D: profile-detail flyout reuses Variant A's section, but the
-   back arrow is hidden. Use visibility:hidden so the title stays
-   centered (the icon-button still occupies its 32px slot). */
+/* Variant D: hide the back arrow in flyouts where the title centering
+   should stay symmetric — visibility:hidden preserves the 32px slot. */
 body[data-variant="d"] .sub-panel[data-active-state="profiles"]
   > [data-variant="a"][data-sub-state="profiles"]
+  > .panel-header
+  > .icon-button[data-action="close-sub-panel"],
+body[data-variant="d"] .sub-panel[data-active-state="create-profile"]
+  > [data-variant="d"][data-sub-state="create-profile"]
   > .panel-header
   > .icon-button[data-action="close-sub-panel"] {
   visibility: hidden;

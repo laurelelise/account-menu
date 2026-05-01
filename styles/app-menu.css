@@ -11,3 +11,76 @@
 .app-menu-panel[hidden] {
   display: none;
 }
+
+
+/* Trailing keyboard-shortcut text on a menu-item row (e.g. ⌘T). */
+.menu-item__shortcut {
+  margin-left: auto;
+  font-size: var(--font-size\/small);
+  color: var(--text\/color\/deemphasized);
+  flex-shrink: 0;
+  font-feature-settings: "tnum";
+}
+
+/* Disabled menu item — grayed out, no hover, not clickable. */
+.menu-item--disabled,
+.menu-item--disabled:hover,
+.menu-item--disabled:focus-visible {
+  background: transparent;
+  cursor: default;
+  pointer-events: none;
+}
+
+.menu-item--disabled .menu-item__title,
+.menu-item--disabled .menu-item__chevron {
+  color: var(--text\/color\/disabled);
+  opacity: 0.55;
+}
+
+/* Zoom row — title on the left, zoom-out / level / zoom-in / fullscreen
+   group on the right. */
+.menu-item--zoom {
+  cursor: default;
+}
+
+.menu-item--zoom:hover,
+.menu-item--zoom:focus-visible {
+  background: transparent;
+}
+
+.zoom-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.zoom-controls__btn {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--text\/color);
+  font-size: 14px;
+  font-weight: var(--font\/weight\/semibold);
+  cursor: pointer;
+  line-height: 1;
+  font-family: inherit;
+}
+
+.zoom-controls__btn:hover {
+  background: var(--toolbar\/button\/background\/color\/hover);
+}
+
+.zoom-controls__level {
+  min-width: 36px;
+  text-align: center;
+  font-size: var(--font-size\/small);
+  color: var(--text\/color\/deemphasized);
+  font-feature-settings: "tnum";
+}

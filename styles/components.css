@@ -675,18 +675,22 @@ body[data-variant="c"] .panel-divider:has(+ .menu-item[data-action="signout"]) {
   object-fit: contain;
 }
 
-/* Trailing close (×) icon on synced-tab rows. Slightly de-emphasized
-   by default, deepens on hover to match other dismiss patterns. */
+/* Trailing close (×) icon on synced-tab rows. Hidden by default,
+   reveals only when the row is hovered or focused. */
 .menu-item__close {
   width: 16px;
   height: 16px;
   flex-shrink: 0;
   display: block;
-  opacity: 0.6;
+  opacity: 0;
+  transition: opacity 80ms ease;
+  pointer-events: none;
 }
 
-.menu-item:hover .menu-item__close {
+.menu-item:hover .menu-item__close,
+.menu-item:focus-visible .menu-item__close {
   opacity: 1;
+  pointer-events: auto;
 }
 
 .menu-item__avatar-overlay > img {
@@ -730,6 +734,9 @@ body[data-variant="c"] [data-if-variant="c"] {
   font-size: var(--font-size\/root);
   color: var(--button\/text\/color\/menu);
   line-height: 1.15;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .menu-item__title--semibold {

@@ -57,7 +57,7 @@
         </div>
 
         <div class="tabstrip__trailing">
-          <button class="toolbar-button" aria-label="All tabs" tabindex="-1">
+          <button class="toolbar-button" type="button" data-action="toggle-tabs-menu" aria-label="List all tabs">
             <img src="assets/icons/arrow-down.svg" alt="" />
           </button>
           <button class="toolbar-button toolbar-button--window-switcher" aria-label="Window switcher" tabindex="-1">
@@ -1221,7 +1221,7 @@
         <button class="menu-item" type="button" data-action="secure-sync">
           <span class="menu-item__icon"><img src="assets/icons/sync-16.svg" alt="" /></span>
           <span class="menu-item__labels">
-            <span class="menu-item__title">Sync your data</span>
+            <span class="menu-item__title">Sync Your Data</span>
           </span>
         </button>
 
@@ -1272,7 +1272,7 @@
           </span>
           <span class="menu-item__labels">
             <span class="menu-item__title menu-item__title--semibold">sam@gmail.com</span>
-            <span class="menu-item__subtitle menu-item__subtitle--critical">You’re signed out</span>
+            <span class="menu-item__subtitle menu-item__subtitle--critical">You’re Signed Out</span>
           </span>
           <span class="menu-item__inline-button menu-item__inline-button--primary" aria-hidden="true">Sign in</span>
         </button>
@@ -1314,12 +1314,12 @@
 
         <div class="panel-divider"></div>
 
-        <div class="menu-subheader menu-subheader--soft">Secure sync</div>
+        <div class="menu-subheader menu-subheader--soft">Secure Sync</div>
 
         <button class="menu-item" type="button" data-action="secure-sync">
           <span class="menu-item__icon"><img src="assets/icons/sync-16.svg" alt="" /></span>
           <span class="menu-item__labels">
-            <span class="menu-item__title">Sync is off</span>
+            <span class="menu-item__title">Sync is Off</span>
             <span class="menu-item__subtitle menu-item__subtitle--critical">Sign in to sync</span>
           </span>
         </button>
@@ -1409,7 +1409,7 @@
           <button class="menu-item menu-item--with-trailing" type="button">
             <span class="menu-item__icon"><img src="assets/icons/sync-16.svg" alt="" /></span>
             <span class="menu-item__labels">
-              <span class="menu-item__title">Sync is off</span>
+              <span class="menu-item__title">Sync is Off</span>
               <span class="menu-item__subtitle menu-item__subtitle--critical">Your data is not syncing</span>
             </span>
           </button>
@@ -1508,7 +1508,7 @@
         <button class="menu-item" type="button" data-sync-status="on" data-action="open-sync-actions">
           <span class="menu-item__icon"><img src="assets/icons/sync-16.svg" alt="" /></span>
           <span class="menu-item__labels">
-            <span class="menu-item__title">Sync is on</span>
+            <span class="menu-item__title">Sync is On</span>
             <span class="menu-item__subtitle">Last synced 15 seconds ago</span>
           </span>
           <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
@@ -1901,7 +1901,7 @@
 
         <button class="menu-item" type="button" data-action="open-synced-tabs">
           <span class="menu-item__icon"><img src="assets/icons/all-tabs-16.svg" alt="" /></span>
-          <span class="menu-item__labels"><span class="menu-item__title">View all synced tabs</span></span>
+          <span class="menu-item__labels"><span class="menu-item__title">View All Synced Tabs</span></span>
         </button>
       </section>
 
@@ -1913,7 +1913,7 @@
         <button class="menu-item" type="button" data-action="sync-now">
           <span class="menu-item__icon"><img src="assets/icons/sync-16.svg" alt="" /></span>
           <span class="menu-item__labels">
-            <span class="menu-item__title">Sync now</span>
+            <span class="menu-item__title">Sync Now</span>
           </span>
         </button>
 
@@ -1947,12 +1947,12 @@
       </section>
 
       <!-- Variant D / Create-profile flyout — Figma 15970:24960 -->
-      <section class="panel__slot" data-variant="d" data-sub-state="create-profile" aria-label="Create a new profile">
+      <section class="panel__slot" data-variant="d" data-sub-state="create-profile" aria-label="Create a New Profile">
         <div class="panel-header">
           <button class="icon-button" type="button" data-action="close-sub-panel" aria-label="Back">
             <img src="assets/icons/back-16.svg" alt="" />
           </button>
-          <p class="panel-header__title">Create a new profile</p>
+          <p class="panel-header__title">Create a New Profile</p>
           <div class="panel-header__slot" aria-hidden="true"></div>
         </div>
 
@@ -1997,56 +1997,294 @@
          App menu (hamburger) panel — minimal; only "Account" is live.
          ============================================================ -->
     <div class="panel app-menu-panel" id="app-menu-panel" role="menu" aria-label="Application menu" hidden>
+      <!-- Account header with avatar -->
       <button class="menu-item" type="button" data-action="open-account">
-        <span class="menu-item__icon">
-          <img src="assets/icons/account-16.svg" alt="" />
+        <span class="menu-item__avatar">
+          <img src="assets/avatars/Ellipse%202.png" alt="" />
         </span>
         <span class="menu-item__labels">
-          <span class="menu-item__title">Account</span>
+          <span class="menu-item__title menu-item__title--semibold">Sam</span>
         </span>
-        <span class="menu-item__chevron">
-          <img src="assets/icons/chevron-right-16.svg" alt="" />
+        <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+      </button>
+
+      <!-- Original profile -->
+      <button class="menu-item" type="button">
+        <span class="menu-item__icon"><img src="assets/icons/bookmark-16.svg" alt="" /></span>
+        <span class="menu-item__labels">
+          <span class="menu-item__title">Original profile</span>
         </span>
+        <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+      </button>
+
+      <div class="panel-divider"></div>
+
+      <!-- Tabs and windows -->
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">New tab</span></span>
+        <span class="menu-item__shortcut">⌘T</span>
+      </button>
+
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">New window</span></span>
+        <span class="menu-item__shortcut">⌘N</span>
+      </button>
+
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">New private window</span></span>
+        <span class="menu-item__shortcut">⇧⌘P</span>
+      </button>
+
+      <div class="panel-divider"></div>
+
+      <!-- Browse + library -->
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Bookmarks</span></span>
+        <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+      </button>
+
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">History</span></span>
+        <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+      </button>
+
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Downloads</span></span>
+        <span class="menu-item__shortcut">⌘J</span>
+      </button>
+
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Passwords</span></span>
+      </button>
+
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Extensions and themes</span></span>
+        <span class="menu-item__shortcut">⇧⌘A</span>
+      </button>
+
+      <div class="panel-divider"></div>
+
+      <!-- Page actions -->
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Print…</span></span>
+        <span class="menu-item__shortcut">⌘P</span>
+      </button>
+
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Save page as…</span></span>
+        <span class="menu-item__shortcut">⌘S</span>
+      </button>
+
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Find in page…</span></span>
+        <span class="menu-item__shortcut">⌘F</span>
+      </button>
+
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Translate page…</span></span>
+      </button>
+
+      <!-- Zoom row: minus, level, plus, fullscreen -->
+      <div class="menu-item menu-item--no-icon menu-item--zoom">
+        <span class="menu-item__labels"><span class="menu-item__title">Zoom</span></span>
+        <div class="zoom-controls">
+          <button class="zoom-controls__btn" type="button" aria-label="Zoom out">−</button>
+          <span class="zoom-controls__level">100%</span>
+          <button class="zoom-controls__btn" type="button" aria-label="Zoom in">+</button>
+          <button class="zoom-controls__btn" type="button" aria-label="Enter full screen">⛶</button>
+        </div>
+      </div>
+
+      <div class="panel-divider"></div>
+
+      <!-- Settings + help -->
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Settings</span></span>
+        <span class="menu-item__shortcut">⌘,</span>
+      </button>
+
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">More tools</span></span>
+        <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+      </button>
+
+      <button class="menu-item menu-item--no-icon menu-item--disabled" type="button" disabled>
+        <span class="menu-item__labels"><span class="menu-item__title">Report broken site</span></span>
+        <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+      </button>
+
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Help</span></span>
+        <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+      </button>
+    </div>
+
+    <!-- Tab right-click context menu — Figma 21154:29378. Opened on
+         contextmenu over a chrome tab; positioned at the cursor. -->
+    <div class="panel context-menu" id="tab-context-menu" role="menu" aria-label="Tab actions" hidden>
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">New Tab Below</span></span>
+      </button>
+
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Add Tab to Group</span></span>
+        <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+      </button>
+
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Add Split View</span></span>
+        <span class="badge-new">New</span>
+      </button>
+
+      <div class="panel-divider"></div>
+
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Reload Tab</span></span>
+      </button>
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Mute Tab</span></span>
+      </button>
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Pin Tab</span></span>
+      </button>
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Unload Tab</span></span>
+      </button>
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Duplicate Tab</span></span>
+      </button>
+
+      <div class="panel-divider"></div>
+
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Ask an AI Chatbot</span></span>
+        <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+      </button>
+
+      <div class="panel-divider"></div>
+
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Bookmark Tab…</span></span>
+      </button>
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Move Tab</span></span>
+        <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+      </button>
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Share</span></span>
+        <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+      </button>
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Select All Tabs</span></span>
+      </button>
+
+      <div class="panel-divider"></div>
+
+      <button class="menu-item menu-item--no-icon" type="button" data-action="open-send-mobile">
+        <span class="menu-item__labels"><span class="menu-item__title">Send to Mobile</span></span>
+        <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+      </button>
+
+      <div class="panel-divider"></div>
+
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Close Tab</span></span>
+      </button>
+      <button class="menu-item menu-item--no-icon menu-item--disabled" type="button" disabled>
+        <span class="menu-item__labels"><span class="menu-item__title">Close Duplicate Tabs</span></span>
+      </button>
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Close Multiple Tabs</span></span>
+        <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+      </button>
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">Reopen Closed Tab</span></span>
       </button>
 
       <div class="panel-divider"></div>
 
       <button class="menu-item" type="button">
-        <span class="menu-item__icon">
-          <img src="assets/icons/bookmarks-16.svg" alt="" />
-        </span>
-        <span class="menu-item__labels">
-          <span class="menu-item__title">Bookmarks</span>
-        </span>
+        <span class="menu-item__icon"><img src="assets/icons/lock-16.svg" alt="" /></span>
+        <span class="menu-item__labels"><span class="menu-item__title">1Password — Password Manager</span></span>
       </button>
+    </div>
 
-      <button class="menu-item" type="button">
-        <span class="menu-item__icon">
-          <img src="assets/icons/history-16.svg" alt="" />
-        </span>
-        <span class="menu-item__labels">
-          <span class="menu-item__title">History</span>
-        </span>
-      </button>
-
-      <button class="menu-item" type="button">
-        <span class="menu-item__icon">
-          <img src="assets/icons/extensions-16.svg" alt="" />
-        </span>
-        <span class="menu-item__labels">
-          <span class="menu-item__title">Extensions</span>
-        </span>
+    <!-- "List all tabs" menu opened from the down-arrow in the tabstrip.
+         Shows Sam's open tabs themed around the NYC trip + Mother's Day
+         research. Search All Tabs at the top opens history; View All Tabs
+         at the bottom would open a future tab grid. -->
+    <div class="panel tabs-menu" id="tabs-menu" role="menu" aria-label="List all tabs" hidden>
+      <button class="menu-item menu-item--no-icon" type="button" data-action="open-history">
+        <span class="menu-item__labels"><span class="menu-item__title">Search All Tabs</span></span>
       </button>
 
       <div class="panel-divider"></div>
 
+      <div class="tabs-menu__list">
+        <button class="menu-item" type="button">
+          <img class="menu-item__favicon" src="https://www.google.com/s2/favicons?domain=airbnb.com&sz=32" alt="" aria-hidden="true" />
+          <span class="menu-item__labels"><span class="menu-item__title">Brooklyn rentals - Airbnb</span></span>
+          <img class="menu-item__close" src="assets/icons/close-16.svg" alt="" aria-hidden="true" />
+        </button>
+        <button class="menu-item" type="button">
+          <img class="menu-item__favicon" src="https://www.google.com/s2/favicons?domain=google.com&sz=32" alt="" aria-hidden="true" />
+          <span class="menu-item__labels"><span class="menu-item__title">Google Flights — SFO to JFK</span></span>
+          <img class="menu-item__close" src="assets/icons/close-16.svg" alt="" aria-hidden="true" />
+        </button>
+        <button class="menu-item" type="button">
+          <img class="menu-item__favicon" src="https://www.google.com/s2/favicons?domain=tripadvisor.com&sz=32" alt="" aria-hidden="true" />
+          <span class="menu-item__labels"><span class="menu-item__title">Top 10 things to do in NYC - TripAdvisor</span></span>
+          <img class="menu-item__close" src="assets/icons/close-16.svg" alt="" aria-hidden="true" />
+        </button>
+        <button class="menu-item" type="button">
+          <img class="menu-item__favicon" src="https://www.google.com/s2/favicons?domain=broadway.com&sz=32" alt="" aria-hidden="true" />
+          <span class="menu-item__labels"><span class="menu-item__title">Hamilton tickets - Broadway.com</span></span>
+          <img class="menu-item__close" src="assets/icons/close-16.svg" alt="" aria-hidden="true" />
+        </button>
+        <button class="menu-item" type="button">
+          <img class="menu-item__favicon" src="https://www.google.com/s2/favicons?domain=etsy.com&sz=32" alt="" aria-hidden="true" />
+          <span class="menu-item__labels"><span class="menu-item__title">Mother's Day gifts - Etsy</span></span>
+          <img class="menu-item__close" src="assets/icons/close-16.svg" alt="" aria-hidden="true" />
+        </button>
+        <button class="menu-item" type="button">
+          <img class="menu-item__favicon" src="https://www.google.com/s2/favicons?domain=bouqs.com&sz=32" alt="" aria-hidden="true" />
+          <span class="menu-item__labels"><span class="menu-item__title">Flower delivery - The Bouqs Co.</span></span>
+          <img class="menu-item__close" src="assets/icons/close-16.svg" alt="" aria-hidden="true" />
+        </button>
+        <button class="menu-item" type="button">
+          <img class="menu-item__favicon" src="https://www.google.com/s2/favicons?domain=levainbakery.com&sz=32" alt="" aria-hidden="true" />
+          <span class="menu-item__labels"><span class="menu-item__title">Cookie tins - Levain Bakery</span></span>
+          <img class="menu-item__close" src="assets/icons/close-16.svg" alt="" aria-hidden="true" />
+        </button>
+        <button class="menu-item" type="button">
+          <img class="menu-item__favicon" src="https://www.google.com/s2/favicons?domain=williams-sonoma.com&sz=32" alt="" aria-hidden="true" />
+          <span class="menu-item__labels"><span class="menu-item__title">Gifts for Mom - Williams Sonoma</span></span>
+          <img class="menu-item__close" src="assets/icons/close-16.svg" alt="" aria-hidden="true" />
+        </button>
+      </div>
+
+      <div class="panel-divider"></div>
+
+      <button class="menu-item menu-item--no-icon" type="button">
+        <span class="menu-item__labels"><span class="menu-item__title">View All Tabs</span></span>
+      </button>
+    </div>
+
+    <!-- Toast — brief confirmation message (e.g. "Page sent to Sam's
+         iPhone"). Auto-dismisses after a couple of seconds. -->
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+    <!-- Submenu for "Send to Mobile" in the tab context menu — Sam's
+         devices that the page can be sent to. Positioned beside the
+         parent row when opened. -->
+    <div class="panel context-menu context-submenu" id="tab-send-mobile-menu" role="menu" aria-label="Send to mobile" hidden>
       <button class="menu-item" type="button">
-        <span class="menu-item__icon">
-          <img src="assets/icons/settings-16.svg" alt="" />
-        </span>
-        <span class="menu-item__labels">
-          <span class="menu-item__title">Settings</span>
-        </span>
+        <span class="menu-item__icon"><img src="assets/icons/device-mobile-16.svg" alt="" /></span>
+        <span class="menu-item__labels"><span class="menu-item__title">Sam’s iPhone</span></span>
+      </button>
+      <button class="menu-item" type="button">
+        <span class="menu-item__icon"><img src="assets/icons/device-mobile-16.svg" alt="" /></span>
+        <span class="menu-item__labels"><span class="menu-item__title">Sam’s iPad</span></span>
       </button>
     </div>
 

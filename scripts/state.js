@@ -185,6 +185,9 @@ function positionSubPanel() {
 
 function openPanel(which) {
   closePanels({ silent: true });
+  // Only one menu at a time — dismiss any other top-level menu if open.
+  if (typeof hideTabContextMenu === "function") hideTabContextMenu();
+  if (typeof hideTabsMenu === "function") hideTabsMenu();
   state.openMenu = which;
   const panel = which === "account" ? accountPanel : appMenuPanel;
   const anchor = which === "account" ? accountButton : hamburgerButton;
@@ -748,6 +751,9 @@ const ACTIONS = {
   "close-sidebar-panel": () => {
     closeSidebarPanel();
   },
+  "toggle-tabs-menu": (target) => {
+    toggleTabsMenu(target);
+  },
 };
 
 document.addEventListener("click", (event) => {
@@ -798,6 +804,215 @@ document.addEventListener("keydown", (event) => {
     (state.openMenu === "account" ? accountButton : hamburgerButton).focus();
   }
 });
+
+/* Tab right-click context menu ------------------------------------------
+   Right-click on any chrome tab opens a Firefox-style context menu at the
+   cursor. Click outside / Escape / picking an item closes it. */
+const tabContextMenu = document.getElementById("tab-context-menu");
+const tabSendMobileMenu = document.getElementById("tab-send-mobile-menu");
+const toastEl = document.getElementById("toast");
+let toastTimer = 0;
+
+document.addEventListener("contextmenu", (event) => {
+  const tab = event.target.closest(".tab");
+  if (!tab) return;
+  event.preventDefault();
+  showTabContextMenu(event.clientX, event.clientY);
+});
+
+/* Left-click on a tab also opens the context menu. Useful during user
+   testing on a hosted prototype where right-click could conflict with
+   the host browser's own context menu. */
+document.addEventListener("click", (event) => {
+  const tab = event.target.closest(".tab");
+  if (!tab) return;
+  // Don't fire if the participant clicked the close X inside an active tab.
+  if (event.target.closest(".tab__close")) return;
+  event.preventDefault();
+  event.stopPropagation();
+  showTabContextMenu(event.clientX, event.clientY);
+});
+
+/* Show a brief toast (e.g. "Page sent to Sam's iPhone"). */
+function showToast(message) {
+  if (!toastEl) return;
+  toastEl.textContent = message;
+  toastEl.hidden = false;
+  // Restart the in-animation by removing/adding the node.
+  toastEl.style.animation = "none";
+  void toastEl.offsetWidth;
+  toastEl.style.animation = "";
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toastEl.hidden = true;
+    toastTimer = 0;
+  }, 2200);
+}
+
+function showTabContextMenu(x, y) {
+  if (!tabContextMenu) return;
+  // Only one menu at a time — close any open account / hamburger panel.
+  closePanels({ silent: true });
+  state.openMenu = "none";
+  hideTabSendMobileMenu();
+  if (typeof hideTabsMenu === "function") hideTabsMenu();
+  tabContextMenu.hidden = false;
+  tabContextMenu.style.left = `${x}px`;
+  tabContextMenu.style.top = `${y}px`;
+  // Reflow then nudge inside the viewport if it overflows.
+  const rect = tabContextMenu.getBoundingClientRect();
+  const vw = document.documentElement.clientWidth;
+  const vh = document.documentElement.clientHeight;
+  const pad = 8;
+  if (rect.right > vw - pad) {
+    tabContextMenu.style.left = `${Math.max(pad, vw - rect.width - pad)}px`;
+  }
+  if (rect.bottom > vh - pad) {
+    tabContextMenu.style.top = `${Math.max(pad, vh - rect.height - pad)}px`;
+  }
+}
+
+function hideTabContextMenu() {
+  if (tabContextMenu) tabContextMenu.hidden = true;
+  hideTabSendMobileMenu();
+}
+
+/* Show the "Send to Mobile" submenu beside its trigger row. Auto-flips
+   to the left if it would overflow the viewport on the right. */
+function showTabSendMobileMenu(triggerEl) {
+  if (!tabSendMobileMenu || !triggerEl) return;
+  tabSendMobileMenu.hidden = false;
+  // Align top of submenu with the trigger row.
+  const triggerRect = triggerEl.getBoundingClientRect();
+  const subRect = tabSendMobileMenu.getBoundingClientRect();
+  const vw = document.documentElement.clientWidth;
+  const vh = document.documentElement.clientHeight;
+  const gap = 4;
+  const pad = 8;
+  let left = triggerRect.right + gap;
+  if (left + subRect.width > vw - pad) {
+    left = triggerRect.left - subRect.width - gap;
+    if (left < pad) left = pad;
+  }
+  let top = triggerRect.top - 8; // pull up slightly so first item lines up
+  if (top + subRect.height > vh - pad) {
+    top = Math.max(pad, vh - subRect.height - pad);
+  }
+  tabSendMobileMenu.style.left = `${left}px`;
+  tabSendMobileMenu.style.top = `${top}px`;
+}
+
+function hideTabSendMobileMenu() {
+  if (tabSendMobileMenu) tabSendMobileMenu.hidden = true;
+}
+
+document.addEventListener("click", (event) => {
+  if (!tabContextMenu || tabContextMenu.hidden) return;
+  // "Send to Mobile" trigger: open the submenu, keep parent menu open.
+  const sendMobileTrigger = event.target.closest('[data-action="open-send-mobile"]');
+  if (sendMobileTrigger) {
+    event.preventDefault();
+    event.stopPropagation();
+    showTabSendMobileMenu(sendMobileTrigger);
+    return;
+  }
+  // Click on a submenu item: fire a "Page sent to …" toast and close.
+  const submenuItem = event.target.closest("#tab-send-mobile-menu .menu-item");
+  if (submenuItem) {
+    const deviceName = submenuItem.querySelector(".menu-item__title")?.textContent.trim();
+    if (deviceName) showToast(`Page sent to ${deviceName}`);
+    hideTabContextMenu();
+    return;
+  }
+  // Click anywhere else outside the menus dismisses them. The tab-click
+  // handler above runs first with stopPropagation, so clicking a tab
+  // re-opens the menu rather than just dismissing.
+  if (
+    !event.target.closest("#tab-context-menu") &&
+    !event.target.closest("#tab-send-mobile-menu")
+  ) {
+    hideTabContextMenu();
+    return;
+  }
+  // Click on a regular context menu item: action taken, close.
+  if (event.target.closest("#tab-context-menu .menu-item")) {
+    hideTabContextMenu();
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && tabContextMenu && !tabContextMenu.hidden) {
+    hideTabContextMenu();
+  }
+});
+
+window.addEventListener("scroll", hideTabContextMenu, { passive: true });
+
+/* "List all tabs" menu — opened by the down-arrow in the tabstrip.
+   Anchored below the trigger; behaves like the other panels for
+   one-menu-at-a-time and click-outside dismiss. */
+const tabsMenu = document.getElementById("tabs-menu");
+
+function showTabsMenu(triggerEl) {
+  if (!tabsMenu || !triggerEl) return;
+  closePanels({ silent: true });
+  state.openMenu = "none";
+  hideTabContextMenu();
+  tabsMenu.hidden = false;
+  // Anchor below the trigger; align to its right edge.
+  const triggerRect = triggerEl.getBoundingClientRect();
+  const menuRect = tabsMenu.getBoundingClientRect();
+  const vw = document.documentElement.clientWidth;
+  const vh = document.documentElement.clientHeight;
+  const pad = 8;
+  let left = triggerRect.right - menuRect.width;
+  if (left < pad) left = pad;
+  if (left + menuRect.width > vw - pad) left = vw - menuRect.width - pad;
+  let top = triggerRect.bottom + 4;
+  if (top + menuRect.height > vh - pad) {
+    top = Math.max(pad, vh - menuRect.height - pad);
+  }
+  tabsMenu.style.left = `${left}px`;
+  tabsMenu.style.top = `${top}px`;
+}
+
+function hideTabsMenu() {
+  if (tabsMenu) tabsMenu.hidden = true;
+}
+
+function toggleTabsMenu(triggerEl) {
+  if (!tabsMenu) return;
+  if (!tabsMenu.hidden) {
+    hideTabsMenu();
+  } else {
+    showTabsMenu(triggerEl);
+  }
+}
+
+document.addEventListener("click", (event) => {
+  if (!tabsMenu || tabsMenu.hidden) return;
+  // Toggle button is dispatched via the ACTIONS table — leave it alone.
+  if (event.target.closest('[data-action="toggle-tabs-menu"]')) return;
+  // Click on Search All Tabs (open-history) or a tab row — close the
+  // menu after the action runs. The action handler runs in the dispatcher
+  // above, then this listener fires and dismisses the menu.
+  if (event.target.closest("#tabs-menu .menu-item")) {
+    hideTabsMenu();
+    return;
+  }
+  // Click anywhere else outside the menu closes it.
+  if (!event.target.closest("#tabs-menu")) {
+    hideTabsMenu();
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && tabsMenu && !tabsMenu.hidden) {
+    hideTabsMenu();
+  }
+});
+
+window.addEventListener("scroll", hideTabsMenu, { passive: true });
 
 window.addEventListener("resize", () => {
   if (state.openMenu === "account") {

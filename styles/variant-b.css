@@ -21,6 +21,14 @@
   display: none;
 }
 
+/* Generic toggle for elements outside .menu-item--profiles (e.g. Variant D
+   uses data-if-profiles on whole rows / sections). Hide the non-matching
+   value; matching elements keep their natural display. */
+body[data-profiles-mode="single"] [data-if-profiles="many"],
+body[data-profiles-mode="many"] [data-if-profiles="single"] {
+  display: none;
+}
+
 body[data-profiles-mode="single"]:not([data-variant="c"]) .menu-item--profiles [data-if-profiles="single"] {
   display: block;
 }

@@ -74,9 +74,16 @@ function setAccountState(next) {
 
 /* Synced-tabs sidebar panel ---------------------------------------------- */
 function syncDevicesAdded() {
-  const variantB = accountPanel.dataset.variant === "b";
-  const onConnected = effectiveMainState(state.accountState) === "connected-devices";
-  if (variantB && onConnected) {
+  // Variants B and D both surface devices and connect to the chrome's
+  // synced-tabs sidebar panel. Variant B shows devices only in the
+  // connected-devices state; Variant D's signed-in section already lists
+  // them, so signed-in counts too.
+  const variant = accountPanel.dataset.variant;
+  const here = state.accountState;
+  const hasDevicesUI =
+    (variant === "b" && effectiveMainState(here) === "connected-devices") ||
+    (variant === "d" && (here === "signed-in" || here === "connected-devices"));
+  if (hasDevicesUI) {
     document.body.dataset.devicesAdded = "true";
   } else {
     delete document.body.dataset.devicesAdded;
@@ -219,9 +226,9 @@ accountPanel.addEventListener("click", (event) => {
    - Single 500ms icon rotation + 250ms subtitle crossfade to "Updated just now".
    - Reverts to "Last synced 5 minutes ago" after 8s (or restarts on next open).
    - Respects prefers-reduced-motion (skips rotation, still updates text). */
-const SYNC_STATUS_REVERT_MS = 8000;
+const SYNC_STATUS_REVERT_MS = 12000;
 const SYNC_STATUS_FADE_MS = 250;
-const SYNC_STATUS_ROTATE_MS = 2000;
+const SYNC_STATUS_ROTATE_MS = 1300;
 const SYNC_STATUS_DEFAULT_TEXT = "Last synced 5 minutes ago";
 const SYNC_STATUS_FRESH_TEXT = "Updated just now";
 
@@ -646,6 +653,41 @@ const ACTIONS = {
   "close-sub-panel": () => {
     hideSubPanel();
   },
+  /* Variant D device row → opens the device-tabs flyout (Figma 21094:29052).
+     Toggles like the other Variant D flyouts. Updates the title and the
+     section's data-device so CSS shows the right tab list per device. */
+  "open-device-tabs": (target) => {
+    if (subPanelTrigger === target && !subPanel.hidden) {
+      hideSubPanel();
+      return;
+    }
+    const deviceName =
+      target.querySelector(".menu-item__title")?.textContent?.trim() ?? "Device";
+    const deviceId = target.dataset.device || "iphone";
+    const section = subPanel.querySelector(
+      '[data-variant="d"][data-sub-state="device-detail"]'
+    );
+    if (section) section.dataset.device = deviceId;
+    const titleEl = subPanel.querySelector("[data-device-title]");
+    if (titleEl) titleEl.textContent = deviceName;
+    showSubPanel(target, "device-detail");
+  },
+  /* Variant D fresh signed-out: "Create a New Profile" row opens the
+     new create-profile flyout (a sub-panel rather than the modal). */
+  "open-create-profile": (target) => {
+    if (subPanelTrigger === target && !subPanel.hidden) {
+      hideSubPanel();
+      return;
+    }
+    showSubPanel(target, "create-profile");
+  },
+  /* Confirm button inside the Variant D create-profile flyout —
+     flips profiles-mode to many and closes the flyout. The account
+     menu stays open. Profiles can exist independent of sign-in. */
+  "confirm-create-profile": () => {
+    setProfilesMode("many");
+    hideSubPanel();
+  },
   /* Variant B "Sync is On" row: opens a flyout with Sync now + Manage sync.
      Toggles like the other Variant B sub-panels. */
   "open-sync-actions": (target) => {
@@ -786,7 +828,7 @@ const devSwitcher = document.getElementById("dev-switcher");
 const devSwitcherHide = document.getElementById("dev-switcher-hide");
 const devButtons = devSwitcher.querySelectorAll(".dev-switcher__btn");
 
-const VALID_VARIANTS = new Set(["a", "b", "c"]);
+const VALID_VARIANTS = new Set(["a", "b", "c", "d"]);
 
 function getVariantFromURL() {
   const v = new URLSearchParams(window.location.search).get("variant");

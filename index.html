@@ -1153,6 +1153,288 @@
            account-menu.css) and overrides only the avatar treatment +
            subtitle text via body[data-variant="c"] rules. -->
 
+      <!-- ============================================================
+           VARIANT D — Sprint 1 Chrome Sidebar layout. Soft subheaders,
+           initial avatar, profile-icon pills, inline devices, sync row
+           with chevron. No Sign out row.
+           ============================================================ -->
+
+      <!-- Variant D / Signed out (cache sign out) — Figma 16210:25369.
+           Single signed-out treatment: avatar header with red "You're
+           signed out", Profiles (when many), Sync is off / Sign in to
+           sync, Privacy tools. -->
+      <section class="panel__slot panel__slot--variant-d" data-variant="d" data-menu-state="signed-out" aria-label="Signed out">
+        <button class="menu-item menu-item--header-row" type="button" data-action="signin">
+          <span class="menu-item__avatar menu-item__avatar--signed-out" aria-hidden="true">
+            <img src="assets/icons/account-16.svg" alt="" />
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title menu-item__title--semibold">sam@gmail.com</span>
+            <span class="menu-item__subtitle menu-item__subtitle--critical">You’re signed out</span>
+          </span>
+          <span class="menu-item__inline-button menu-item__inline-button--primary" aria-hidden="true">Sign in</span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <div class="profiles-after-create" data-if-profiles="many">
+          <div class="menu-subheader menu-subheader--soft">Profiles</div>
+
+          <button class="menu-item menu-item--selected" type="button" data-action="open-profiles">
+            <span class="profile-icon-pill profile-icon-pill--info">
+              <img src="assets/icons/profile-heart-16.svg" alt="" />
+            </span>
+            <span class="menu-item__labels">
+              <span class="menu-item__title">Original Profile</span>
+            </span>
+            <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+          </button>
+
+          <button class="menu-item" type="button">
+            <span class="profile-icon-pill profile-icon-pill--success">
+              <img src="assets/icons/profile-makeup-16.svg" alt="" />
+            </span>
+            <span class="menu-item__labels">
+              <span class="menu-item__title">Work</span>
+            </span>
+          </button>
+
+          <div class="panel-divider"></div>
+        </div>
+
+        <div class="menu-subheader menu-subheader--soft">Secure sync</div>
+
+        <button class="menu-item" type="button" data-action="signin">
+          <span class="menu-item__icon"><img src="assets/icons/sync-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Sync is off</span>
+            <span class="menu-item__subtitle menu-item__subtitle--critical">Sign in to sync</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <div class="menu-subheader menu-subheader--soft">Privacy tools</div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-monitor-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Monitor</span>
+            <span class="menu-item__subtitle">Get data breach alerts</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-relay-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Relay</span>
+            <span class="menu-item__subtitle">Defend your inbox from spam</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-vpn-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">VPN</span>
+            <span class="menu-item__subtitle">Protect 50GB of your browsing free</span>
+          </span>
+        </button>
+      </section>
+
+      <!-- Variant D / Signed in, sync OFF (turn-on prompt) — Figma 16075:26130 -->
+      <section class="panel__slot panel__slot--variant-d" data-variant="d" data-menu-state="signed-in-sync-off" aria-label="Signed in, sync off">
+        <button class="menu-item menu-item--header-row" type="button" data-action="manage-account">
+          <span class="menu-item__avatar menu-item__avatar--initial" aria-hidden="true">
+            <span class="menu-item__avatar-initial">S</span>
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title menu-item__title--semibold">sam@gmail.com</span>
+            <span class="menu-item__subtitle">Manage Account</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <div class="menu-subheader menu-subheader--soft" data-if-profiles="many">Profiles</div>
+
+        <div class="profiles-after-create" data-if-profiles="many">
+          <button class="menu-item menu-item--selected" type="button" data-action="open-profiles">
+            <span class="profile-icon-pill profile-icon-pill--info">
+              <img src="assets/icons/profile-heart-16.svg" alt="" />
+            </span>
+            <span class="menu-item__labels">
+              <span class="menu-item__title">Original Profile</span>
+            </span>
+            <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+          </button>
+
+          <button class="menu-item" type="button">
+            <span class="profile-icon-pill profile-icon-pill--success">
+              <img src="assets/icons/profile-makeup-16.svg" alt="" />
+            </span>
+            <span class="menu-item__labels">
+              <span class="menu-item__title">Work</span>
+            </span>
+          </button>
+
+          <div class="panel-divider"></div>
+        </div>
+
+        <div class="menu-subheader menu-subheader--soft">Secure Sync</div>
+
+        <div class="menu-row">
+          <button class="menu-item menu-item--with-trailing" type="button">
+            <span class="menu-item__icon"><img src="assets/icons/sync-16.svg" alt="" /></span>
+            <span class="menu-item__labels">
+              <span class="menu-item__title">Sync is off</span>
+              <span class="menu-item__subtitle menu-item__subtitle--critical">Your data is not syncing</span>
+            </span>
+          </button>
+          <button class="moz-button moz-button--ghost menu-item__inline-cta" type="button" data-action="enable-sync">Turn on</button>
+        </div>
+
+        <button class="menu-item" type="button" data-action="add-device">
+          <span class="menu-item__icon"><img src="assets/icons/device-mobile-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Get Firefox on Mobile</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <div class="menu-subheader menu-subheader--soft">Privacy tools</div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-monitor-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Monitor</span>
+            <span class="menu-item__subtitle">Get data breach alerts</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-relay-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Relay</span>
+            <span class="menu-item__subtitle">Defend your inbox from spam</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-vpn-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">VPN</span>
+            <span class="menu-item__subtitle">Protect 50GB of your browsing free</span>
+          </span>
+        </button>
+      </section>
+
+      <!-- Variant D / Signed in (sync on) + Connected devices — Figma 21002:27749.
+           One section serves both signed-in and connected-devices states. -->
+      <section class="panel__slot panel__slot--variant-d" data-variant="d" data-menu-state="connected-devices" aria-label="Signed in, sync on">
+        <button class="menu-item menu-item--header-row" type="button" data-action="manage-account">
+          <span class="menu-item__avatar menu-item__avatar--initial" aria-hidden="true">
+            <span class="menu-item__avatar-initial">S</span>
+          </span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title menu-item__title--semibold">sam@gmail.com</span>
+            <span class="menu-item__subtitle">Manage Account</span>
+          </span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <div class="menu-subheader menu-subheader--soft" data-if-profiles="many">Profiles</div>
+
+        <div class="profiles-after-create" data-if-profiles="many">
+          <button class="menu-item menu-item--selected" type="button" data-action="open-profiles">
+            <span class="profile-icon-pill profile-icon-pill--info">
+              <img src="assets/icons/profile-heart-16.svg" alt="" />
+            </span>
+            <span class="menu-item__labels">
+              <span class="menu-item__title">Original Profile</span>
+            </span>
+            <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+          </button>
+
+          <button class="menu-item" type="button">
+            <span class="profile-icon-pill profile-icon-pill--success">
+              <img src="assets/icons/profile-makeup-16.svg" alt="" />
+            </span>
+            <span class="menu-item__labels">
+              <span class="menu-item__title">Work</span>
+            </span>
+          </button>
+
+          <div class="panel-divider"></div>
+        </div>
+
+        <div class="menu-subheader menu-subheader--soft">Secure Sync</div>
+
+        <button class="menu-item" type="button" data-sync-status="on" data-action="open-sync-actions">
+          <span class="menu-item__icon"><img src="assets/icons/sync-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Sync is on</span>
+            <span class="menu-item__subtitle">Last synced 15 seconds ago</span>
+          </span>
+          <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+        </button>
+
+        <!-- Visible only when no devices have been added yet (signed-in
+             state). Once the user adds a device via this row, state
+             advances to connected-devices and the device list takes over. -->
+        <button class="menu-item" type="button" data-action="add-device">
+          <span class="menu-item__icon"><img src="assets/icons/device-mobile-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Get Firefox on Mobile</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button" data-action="open-device-tabs" data-device="iphone">
+          <span class="menu-item__icon"><img src="assets/icons/device-mobile-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Sam’s iPhone</span>
+          </span>
+          <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+        </button>
+
+        <button class="menu-item" type="button" data-action="open-device-tabs" data-device="ipad">
+          <span class="menu-item__icon"><img src="assets/icons/device-mobile-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Sam’s iPad</span>
+          </span>
+          <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <div class="menu-subheader menu-subheader--soft">Privacy tools</div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-monitor-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Monitor</span>
+            <span class="menu-item__subtitle">Get data breach alerts</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-relay-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Relay</span>
+            <span class="menu-item__subtitle">Defend your inbox from spam</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/logo-vpn-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">VPN</span>
+            <span class="menu-item__subtitle">Protect 50GB of your browsing free</span>
+          </span>
+        </button>
+      </section>
+
     </div>
 
     <!-- ============================================================
@@ -1422,6 +1704,159 @@
           </span>
         </button>
       </section>
+
+      <!-- Variant D / Device tabs flyout — Figma 21094:29052.
+           One section serves both devices; JS sets data-device on the
+           section based on which row was clicked, and CSS shows only
+           the matching tab list. Title text is updated to match. -->
+      <section class="panel__slot" data-variant="d" data-sub-state="device-detail" data-device="iphone" aria-label="Synced tabs">
+        <div class="flyout-title" data-device-title>Sam’s iPhone</div>
+        <div class="panel-divider"></div>
+
+        <!-- Sam's iPhone tabs (mobile-y, on-the-go research) -->
+        <button class="menu-item" type="button" data-device="iphone">
+          <img class="menu-item__favicon" src="https://www.google.com/s2/favicons?domain=airbnb.com&sz=32" alt="" aria-hidden="true" />
+          <span class="menu-item__labels"><span class="menu-item__title">airbnb.com/brooklyn</span></span>
+          <img class="menu-item__close" src="assets/icons/close-16.svg" alt="" aria-hidden="true" />
+        </button>
+
+        <button class="menu-item" type="button" data-device="iphone">
+          <img class="menu-item__favicon" src="https://www.google.com/s2/favicons?domain=google.com&sz=32" alt="" aria-hidden="true" />
+          <span class="menu-item__labels"><span class="menu-item__title">maps.google.com/jfk</span></span>
+          <img class="menu-item__close" src="assets/icons/close-16.svg" alt="" aria-hidden="true" />
+        </button>
+
+        <button class="menu-item" type="button" data-device="iphone">
+          <img class="menu-item__favicon" src="https://www.google.com/s2/favicons?domain=yelp.com&sz=32" alt="" aria-hidden="true" />
+          <span class="menu-item__labels"><span class="menu-item__title">yelp.com/williamsburg-brunch</span></span>
+          <img class="menu-item__close" src="assets/icons/close-16.svg" alt="" aria-hidden="true" />
+        </button>
+
+        <button class="menu-item" type="button" data-device="iphone">
+          <img class="menu-item__favicon" src="https://www.google.com/s2/favicons?domain=broadway.com&sz=32" alt="" aria-hidden="true" />
+          <span class="menu-item__labels"><span class="menu-item__title">broadway.com/hamilton</span></span>
+          <img class="menu-item__close" src="assets/icons/close-16.svg" alt="" aria-hidden="true" />
+        </button>
+
+        <!-- Sam's iPad tabs (longer-form browsing) -->
+        <button class="menu-item" type="button" data-device="ipad">
+          <img class="menu-item__favicon" src="https://www.google.com/s2/favicons?domain=etsy.com&sz=32" alt="" aria-hidden="true" />
+          <span class="menu-item__labels"><span class="menu-item__title">etsy.com/mothers-day</span></span>
+          <img class="menu-item__close" src="assets/icons/close-16.svg" alt="" aria-hidden="true" />
+        </button>
+
+        <button class="menu-item" type="button" data-device="ipad">
+          <img class="menu-item__favicon" src="https://www.google.com/s2/favicons?domain=bouqs.com&sz=32" alt="" aria-hidden="true" />
+          <span class="menu-item__labels"><span class="menu-item__title">bouqs.com/mothers-day</span></span>
+          <img class="menu-item__close" src="assets/icons/close-16.svg" alt="" aria-hidden="true" />
+        </button>
+
+        <button class="menu-item" type="button" data-device="ipad">
+          <img class="menu-item__favicon" src="https://www.google.com/s2/favicons?domain=tripadvisor.com&sz=32" alt="" aria-hidden="true" />
+          <span class="menu-item__labels"><span class="menu-item__title">tripadvisor.com/nyc</span></span>
+          <img class="menu-item__close" src="assets/icons/close-16.svg" alt="" aria-hidden="true" />
+        </button>
+
+        <button class="menu-item" type="button" data-device="ipad">
+          <img class="menu-item__favicon" src="https://www.google.com/s2/favicons?domain=timeout.com&sz=32" alt="" aria-hidden="true" />
+          <span class="menu-item__labels"><span class="menu-item__title">timeout.com/newyork</span></span>
+          <img class="menu-item__close" src="assets/icons/close-16.svg" alt="" aria-hidden="true" />
+        </button>
+
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button" data-action="open-synced-tabs">
+          <span class="menu-item__icon"><img src="assets/icons/all-tabs-16.svg" alt="" /></span>
+          <span class="menu-item__labels"><span class="menu-item__title">View all synced tabs</span></span>
+        </button>
+      </section>
+
+      <!-- Variant D / Account sync flyout — Figma 21002:27677 -->
+      <section class="panel__slot" data-variant="d" data-sub-state="sync-actions" aria-label="Secure Sync">
+        <div class="flyout-title">Secure Sync</div>
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button" data-action="sync-now">
+          <span class="menu-item__icon"><img src="assets/icons/sync-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Sync now</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button" data-action="manage-sync">
+          <span class="menu-item__icon"><img src="assets/icons/settings-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Manage Sync Settings</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button" data-action="add-device">
+          <span class="menu-item__icon"><img src="assets/icons/device-mobile-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Add a Device</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/synced-tabs-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Manage Your Devices</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/help-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Don’t See Your Device?</span>
+          </span>
+        </button>
+      </section>
+
+      <!-- Variant D / Create-profile flyout — Figma 15970:24960 -->
+      <section class="panel__slot" data-variant="d" data-sub-state="create-profile" aria-label="Create a new profile">
+        <div class="panel-header">
+          <button class="icon-button" type="button" data-action="close-sub-panel" aria-label="Back">
+            <img src="assets/icons/back-16.svg" alt="" />
+          </button>
+          <p class="panel-header__title">Create a new profile</p>
+          <div class="panel-header__slot" aria-hidden="true"></div>
+        </div>
+
+        <div class="panel-divider"></div>
+
+        <div class="profile-create-illo" aria-hidden="true">Illustration placeholder</div>
+
+        <div class="profile-create-content">
+          <p class="profile-create-content__title">Level up your browsing with a new profile</p>
+          <p class="profile-create-content__body">Keep your bookmarks, passwords, and history separate for work and personal browsing.</p>
+        </div>
+
+        <div class="profile-create-actions">
+          <button class="moz-button moz-button--primary profile-create-actions__cta" type="button" data-action="confirm-create-profile">Create new profile</button>
+        </div>
+
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/help-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">What Are Profiles?</span>
+          </span>
+        </button>
+
+        <button class="menu-item" type="button">
+          <span class="menu-item__icon"><img src="assets/icons/copy-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Copy This Profile</span>
+          </span>
+        </button>
+
+        <button class="menu-item menu-item--no-icon" type="button">
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Manage Profiles</span>
+          </span>
+        </button>
+      </section>
     </div>
 
     <!-- ============================================================
@@ -1508,8 +1943,8 @@
       <div class="dev-switcher__group" role="group">
         <button class="dev-switcher__btn is-active" data-variant="a" type="button">A</button>
         <button class="dev-switcher__btn" data-variant="b" type="button">B</button>
-        <!-- Variant C hidden from the switcher; still accessible via ?variant=c URL. -->
         <button class="dev-switcher__btn" data-variant="c" type="button">C</button>
+        <button class="dev-switcher__btn" data-variant="d" type="button">D</button>
       </div>
       <button class="dev-switcher__hide" id="dev-switcher-hide" type="button" aria-label="Hide switcher">×</button>
     </div>

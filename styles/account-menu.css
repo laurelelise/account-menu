@@ -30,6 +30,7 @@
   display: none;
 }
 
+
 .account-panel[data-variant="a"][data-active-state="signed-out"]            > [data-variant="a"][data-menu-state="signed-out"],
 .account-panel[data-variant="a"][data-active-state="signed-in-sync-off"]    > [data-variant="a"][data-menu-state="signed-in-sync-off"],
 .account-panel[data-variant="a"][data-active-state="signed-in"]             > [data-variant="a"][data-menu-state="signed-in"],
@@ -43,7 +44,13 @@
 .account-panel[data-variant="c"][data-active-state="signed-out"]            > [data-variant="b"][data-menu-state="signed-out"],
 .account-panel[data-variant="c"][data-active-state="signed-in-sync-off"]    > [data-variant="b"][data-menu-state="signed-in-sync-off"],
 .account-panel[data-variant="c"][data-active-state="signed-in"]             > [data-variant="b"][data-menu-state="signed-in"],
-.account-panel[data-variant="c"][data-active-state="connected-devices"]     > [data-variant="b"][data-menu-state="connected-devices"] {
+.account-panel[data-variant="c"][data-active-state="connected-devices"]     > [data-variant="b"][data-menu-state="connected-devices"],
+/* Variant D — Sprint 1 layout. Two signed-out sections share the same
+   data-menu-state and are differentiated via data-if-account-history. */
+.account-panel[data-variant="d"][data-active-state="signed-out"]            > [data-variant="d"][data-menu-state="signed-out"],
+.account-panel[data-variant="d"][data-active-state="signed-in-sync-off"]    > [data-variant="d"][data-menu-state="signed-in-sync-off"],
+.account-panel[data-variant="d"][data-active-state="signed-in"]             > [data-variant="d"][data-menu-state="connected-devices"],
+.account-panel[data-variant="d"][data-active-state="connected-devices"]     > [data-variant="d"][data-menu-state="connected-devices"] {
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -64,6 +71,16 @@
   display: none;
 }
 
+/* Variant D: profile-detail flyout reuses Variant A's section, but the
+   back arrow is hidden. Use visibility:hidden so the title stays
+   centered (the icon-button still occupies its 32px slot). */
+body[data-variant="d"] .sub-panel[data-active-state="profiles"]
+  > [data-variant="a"][data-sub-state="profiles"]
+  > .panel-header
+  > .icon-button[data-action="close-sub-panel"] {
+  visibility: hidden;
+}
+
 .sub-panel > [data-sub-state] {
   display: none;
 }
@@ -78,7 +95,13 @@
 .sub-panel[data-variant="c"][data-active-state="device-detail"] > [data-variant="b"][data-sub-state="device-detail"],
 .sub-panel[data-variant="c"][data-active-state="profiles"]      > [data-variant="b"][data-sub-state="profiles"],
 .sub-panel[data-variant="c"][data-active-state="devices-list"]  > [data-variant="b"][data-sub-state="devices-list"],
-.sub-panel[data-variant="c"][data-active-state="sync-actions"]  > [data-variant="b"][data-sub-state="sync-actions"] {
+.sub-panel[data-variant="c"][data-active-state="sync-actions"]  > [data-variant="b"][data-sub-state="sync-actions"],
+/* Variant D reuses Variant A's profile detail; sync-actions, device-detail,
+   and create-profile have their own Variant D sections. */
+.sub-panel[data-variant="d"][data-active-state="profiles"]       > [data-variant="a"][data-sub-state="profiles"],
+.sub-panel[data-variant="d"][data-active-state="sync-actions"]   > [data-variant="d"][data-sub-state="sync-actions"],
+.sub-panel[data-variant="d"][data-active-state="device-detail"]  > [data-variant="d"][data-sub-state="device-detail"],
+.sub-panel[data-variant="d"][data-active-state="create-profile"] > [data-variant="d"][data-sub-state="create-profile"] {
   display: flex;
   flex-direction: column;
   align-items: stretch;

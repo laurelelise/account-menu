@@ -654,7 +654,8 @@ body[data-variant="c"] .panel-divider:has(+ .menu-item[data-action="signout"]) {
      on Mobile", hide inline device rows.
    - When connected-devices (devices added) → hide "Get Firefox on
      Mobile", show device rows. */
-.account-panel[data-variant="d"][data-active-state="signed-in"] .menu-item[data-action="open-device-tabs"] {
+.account-panel[data-variant="d"][data-active-state="signed-in"] .menu-item[data-action="open-device-tabs"],
+.account-panel[data-variant="d"][data-active-state="signed-in"] .menu-item[data-action="open-send-mobile-tabs"] {
   display: none;
 }
 

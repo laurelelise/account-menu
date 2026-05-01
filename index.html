@@ -1540,6 +1540,14 @@
           <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
         </button>
 
+        <button class="menu-item" type="button" data-action="open-send-mobile-tabs">
+          <span class="menu-item__icon"><img src="assets/icons/send-to-device-16.svg" alt="" /></span>
+          <span class="menu-item__labels">
+            <span class="menu-item__title">Send to mobile</span>
+          </span>
+          <span class="menu-item__chevron"><img src="assets/icons/chevron-right-16.svg" alt="" /></span>
+        </button>
+
         <div class="panel-divider"></div>
 
         <div class="menu-subheader menu-subheader--soft">Privacy tools</div>
@@ -1902,6 +1910,24 @@
         <button class="menu-item" type="button" data-action="open-synced-tabs">
           <span class="menu-item__icon"><img src="assets/icons/all-tabs-16.svg" alt="" /></span>
           <span class="menu-item__labels"><span class="menu-item__title">View All Synced Tabs</span></span>
+        </button>
+      </section>
+
+      <!-- Variant D / Send to mobile flyout — opened from the Send to
+           mobile row in the connected-devices section. Picking a device
+           fires the toast and closes the menu. -->
+      <section class="panel__slot" data-variant="d" data-sub-state="send-mobile" aria-label="Send to mobile">
+        <div class="flyout-title">Send to mobile</div>
+        <div class="panel-divider"></div>
+
+        <button class="menu-item" type="button" data-action="send-to-device">
+          <span class="menu-item__icon"><img src="assets/icons/device-mobile-16.svg" alt="" /></span>
+          <span class="menu-item__labels"><span class="menu-item__title">Sam’s iPhone</span></span>
+        </button>
+
+        <button class="menu-item" type="button" data-action="send-to-device">
+          <span class="menu-item__icon"><img src="assets/icons/device-mobile-16.svg" alt="" /></span>
+          <span class="menu-item__labels"><span class="menu-item__title">Sam’s iPad</span></span>
         </button>
       </section>
 

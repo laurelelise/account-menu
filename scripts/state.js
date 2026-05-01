@@ -697,6 +697,23 @@ const ACTIONS = {
   },
   /* Variant D fresh signed-out: "Create a New Profile" row opens the
      new create-profile flyout (a sub-panel rather than the modal). */
+  /* Variant D connected-devices "Send to mobile" row → flyout listing
+     Sam's connected devices. Toggles like the other Variant D flyouts. */
+  "open-send-mobile-tabs": (target) => {
+    if (subPanelTrigger === target && !subPanel.hidden) {
+      hideSubPanel();
+      return;
+    }
+    showSubPanel(target, "send-mobile");
+  },
+  /* Send-to-device row inside the Send to mobile flyout. Fires a toast
+     ("Page sent to Sam's iPhone") and closes the account menu. */
+  "send-to-device": (target) => {
+    const deviceName =
+      target.querySelector(".menu-item__title")?.textContent.trim() ?? "device";
+    showToast(`Page sent to ${deviceName}`);
+    closePanels();
+  },
   "open-create-profile": (target) => {
     if (subPanelTrigger === target && !subPanel.hidden) {
       hideSubPanel();

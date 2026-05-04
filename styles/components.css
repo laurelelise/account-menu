@@ -654,8 +654,7 @@ body[data-variant="c"] .panel-divider:has(+ .menu-item[data-action="signout"]) {
      on Mobile", hide inline device rows.
    - When connected-devices (devices added) → hide "Get Firefox on
      Mobile", show device rows. */
-.account-panel[data-variant="d"][data-active-state="signed-in"] .menu-item[data-action="open-device-tabs"],
-.account-panel[data-variant="d"][data-active-state="signed-in"] .menu-item[data-action="open-send-mobile-tabs"] {
+.account-panel[data-variant="d"][data-active-state="signed-in"] .menu-item[data-action="open-device-tabs"] {
   display: none;
 }
 
@@ -698,6 +697,14 @@ body[data-variant="c"] .panel-divider:has(+ .menu-item[data-action="signout"]) {
   width: 8px;
   height: 8px;
   display: block;
+}
+
+/* Generic sign-in / sign-out toggle. Used in the hamburger menu
+   header so the Sam row swaps for the mini Sign-in promo when the
+   participant is signed out. */
+body:not([data-signin-state="signed-out"]) [data-if-signin="signed-out"],
+body[data-signin-state="signed-out"] [data-if-signin="signed-in"] {
+  display: none;
 }
 
 /* Variant-conditional subtitle text (e.g. "Manage Account" → "Original

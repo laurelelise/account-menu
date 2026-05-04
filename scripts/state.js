@@ -28,6 +28,7 @@ const state = {
 };
 
 accountPanel.dataset.activeState = effectiveMainState(state.accountState);
+document.body.dataset.accountState = effectiveMainState(state.accountState);
 document.body.dataset.signinState =
   state.accountState === "signed-out" ? "signed-out" : "signed-in";
 
@@ -47,6 +48,10 @@ function setAccountState(next) {
   if (next === state.accountState) return;
   state.accountState = next;
   accountPanel.dataset.activeState = effectiveMainState(next);
+  // Mirror to body so CSS in detached panels (e.g. the sub-panel sync-actions
+  // flyout) can gate rows on the same state without reaching back into
+  // #account-panel.
+  document.body.dataset.accountState = effectiveMainState(next);
   document.body.dataset.signinState =
     next === "signed-out" ? "signed-out" : "signed-in";
   // Sub-panel is only opened by explicit clicks on a device row, never auto.
@@ -126,6 +131,11 @@ function toggleSidebarPanelMode(mode) {
 let subPanelTrigger = null;
 
 function showSubPanel(trigger, subState) {
+  // When the trigger is itself inside the sub-panel (sub-state transition,
+  // e.g. Secure Sync → Send Current Tab to Mobile), the trigger row gets
+  // hidden by the state swap, so its bounding rect would be 0/0. Keep the
+  // sub-panel in place rather than re-measuring against a hidden trigger.
+  const triggerInsideSubPanel = trigger && subPanel.contains(trigger);
   if (subState) subPanel.dataset.activeState = subState;
   if (trigger !== undefined) {
     if (subPanelTrigger && subPanelTrigger !== trigger) {
@@ -135,7 +145,7 @@ function showSubPanel(trigger, subState) {
     if (subPanelTrigger) subPanelTrigger.classList.add("menu-item--active");
   }
   subPanel.hidden = false;
-  positionSubPanel();
+  if (!triggerInsideSubPanel) positionSubPanel();
 }
 
 function hideSubPanel() {
@@ -697,20 +707,13 @@ const ACTIONS = {
   },
   /* Variant D fresh signed-out: "Create a New Profile" row opens the
      new create-profile flyout (a sub-panel rather than the modal). */
-  /* Variant D connected-devices "Send to mobile" row → flyout listing
-     Sam's connected devices. Toggles like the other Variant D flyouts. */
-  "open-send-mobile-tabs": (target) => {
-    if (subPanelTrigger === target && !subPanel.hidden) {
-      hideSubPanel();
-      return;
-    }
-    showSubPanel(target, "send-mobile");
-  },
-  /* Send-to-device row inside the Send to mobile flyout. Fires a toast
+  /* Send-to-device row inside the Secure Sync flyout. Fires a toast
      ("Page sent to Sam's iPhone") and closes the account menu. */
   "send-to-device": (target) => {
     const deviceName =
-      target.querySelector(".menu-item__title")?.textContent.trim() ?? "device";
+      target.dataset.deviceName ||
+      target.querySelector(".menu-item__title")?.textContent.trim() ||
+      "device";
     showToast(`Page sent to ${deviceName}`);
     closePanels();
   },

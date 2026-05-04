@@ -12,6 +12,11 @@
   display: none;
 }
 
+/* Breathing room below the signed-out mini promo before the next row. */
+.app-menu-panel .panel-promo {
+  margin-bottom: 8px;
+}
+
 
 /* Trailing keyboard-shortcut text on a menu-item row (e.g. ⌘T). */
 .menu-item__shortcut {

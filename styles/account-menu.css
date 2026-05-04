@@ -116,12 +116,30 @@ body[data-variant="d"] .sub-panel[data-active-state="create-profile"]
 .sub-panel[data-variant="d"][data-active-state="profiles"]       > [data-variant="a"][data-sub-state="profiles"],
 .sub-panel[data-variant="d"][data-active-state="sync-actions"]   > [data-variant="d"][data-sub-state="sync-actions"],
 .sub-panel[data-variant="d"][data-active-state="device-detail"]  > [data-variant="d"][data-sub-state="device-detail"],
-.sub-panel[data-variant="d"][data-active-state="send-mobile"]    > [data-variant="d"][data-sub-state="send-mobile"],
 .sub-panel[data-variant="d"][data-active-state="create-profile"] > [data-variant="d"][data-sub-state="create-profile"] {
   display: flex;
   flex-direction: column;
   align-items: stretch;
   width: 100%;
+}
+
+/* Hide the per-device "Send Current Tab to …" rows (and their preceding
+   divider) plus "Manage Your Devices" in the Variant D Secure Sync
+   flyout when no devices are paired. signed-in lists no devices yet;
+   signed-out / signed-in-sync-off don't expose them either. */
+body:not([data-account-state="connected-devices"])
+  .sub-panel[data-variant="d"]
+  [data-sub-state="sync-actions"]
+  .menu-item[data-action="send-to-device"],
+body:not([data-account-state="connected-devices"])
+  .sub-panel[data-variant="d"]
+  [data-sub-state="sync-actions"]
+  .menu-item--manage-devices,
+body:not([data-account-state="connected-devices"])
+  .sub-panel[data-variant="d"]
+  [data-sub-state="sync-actions"]
+  .panel-divider--send-to-device {
+  display: none;
 }
 
 /* Header row — avatar + labels, non-interactive (not a button). */
